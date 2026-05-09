@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://crbam5fwtbxga"]
+
+[ext_resource type="Texture2D" uid="uid://24nja0lbgm2j" path="res://Sprites/Post.png" id="1_wiv6a"]
+[ext_resource type="Texture2D" uid="uid://d4jf0uxmpw0m" path="res://Sprites/Ball.png" id="2_nhk7p"]
+[ext_resource type="Script" uid="uid://didkoh67gj3j5" path="res://Scripts/pendulum_bar.gd" id="3_likri"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8mtfu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bkcmx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nhk7p"]
+
+[node name="PostWithPendulum" type="RigidBody2D" unique_id=324772121]
+physics_material_override = SubResource("PhysicsMaterial_8mtfu")
+gravity_scale = 0.0
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=673712260]
+scale = Vector2(0.75, 0.75)
+shape = SubResource("CircleShape2D_bkcmx")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1164603434]
+texture = ExtResource("1_wiv6a")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="." unique_id=453139198]
+node_a = NodePath("..")
+node_b = NodePath("../Ball")
+
+[node name="Ball" type="RigidBody2D" parent="." unique_id=1922856412]
+position = Vector2(50, 50)
+
+[node name="Sprite2D" type="Sprite2D" parent="Ball" unique_id=1332308051]
+texture = ExtResource("2_nhk7p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball" unique_id=863195971]
+scale = Vector2(0.75, 0.75)
+shape = SubResource("CircleShape2D_nhk7p")
+
+[node name="Bar" type="Line2D" parent="." unique_id=356909918 node_paths=PackedStringArray("anchor", "ball")]
+width = 1.0
+default_color = Color(0.65882355, 0.70980394, 0.69803923, 1)
+script = ExtResource("3_likri")
+anchor = NodePath("..")
+ball = NodePath("../Ball")

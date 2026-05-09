@@ -1,0 +1,138 @@
+[gd_scene format=3 uid="uid://b04eq2wqdxilc"]
+
+[ext_resource type="PackedScene" uid="uid://bai67cxuy1fcy" path="res://Prefabs/Objects/ball.tscn" id="1_wb2by"]
+[ext_resource type="PackedScene" uid="uid://k6qatse244j8" path="res://Prefabs/Objects/post.tscn" id="2_8mtfu"]
+[ext_resource type="Script" uid="uid://37pcgess2fgo" path="res://Scripts/spawn_on_click.gd" id="3_wb2by"]
+[ext_resource type="Script" uid="uid://bh61662te7wxb" path="res://Scripts/destory_on_enter.gd" id="4_syfkn"]
+[ext_resource type="Script" uid="uid://bg51x6bpi4hc" path="res://Scripts/stats.gd" id="4_t40n3"]
+[ext_resource type="Script" uid="uid://c4q7g8cfpyoou" path="res://Scripts/upgradeController.gd" id="5_udhrh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wb2by"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_syfkn"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="MainGameScenes" type="Node2D" unique_id=2006252894]
+
+[node name="Post" parent="." unique_id=324772121 instance=ExtResource("2_8mtfu")]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=444447615]
+
+[node name="Post2" parent="." unique_id=618760571 instance=ExtResource("2_8mtfu")]
+position = Vector2(-22, 24)
+
+[node name="Post3" parent="." unique_id=253209478 instance=ExtResource("2_8mtfu")]
+position = Vector2(47, 51)
+
+[node name="Post4" parent="." unique_id=1754240672 instance=ExtResource("2_8mtfu")]
+position = Vector2(27, 70)
+
+[node name="Post5" parent="." unique_id=570359889 instance=ExtResource("2_8mtfu")]
+position = Vector2(63, 27)
+
+[node name="GameController" type="Node2D" parent="." unique_id=945408464]
+
+[node name="Stat" type="Node2D" parent="GameController" unique_id=1515940436]
+script = ExtResource("4_t40n3")
+
+[node name="UpgradeController" type="Node2D" parent="GameController" unique_id=1075821509 node_paths=PackedStringArray("stats", "moneyLabel", "maxSpawnLabel")]
+script = ExtResource("5_udhrh")
+stats = NodePath("../Stat")
+moneyLabel = NodePath("../../CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer/Money")
+maxSpawnLabel = NodePath("../../CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer/MaxSpawnBox/MaxSpawnText")
+
+[node name="SpawnOnClick" type="Node2D" parent="GameController/UpgradeController" unique_id=933727081 node_paths=PackedStringArray("stats")]
+script = ExtResource("3_wb2by")
+Ball = ExtResource("1_wb2by")
+stats = NodePath("../../Stat")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=621370730]
+position = Vector2(0, 130)
+scale = Vector2(50, 2)
+script = ExtResource("4_syfkn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1475838781]
+shape = SubResource("RectangleShape2D_wb2by")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=632596281]
+
+[node name="HUD" type="Control" parent="CanvasLayer" unique_id=779367772]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD" unique_id=1541148034]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/margin_right = 20
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/HUD/MarginContainer" unique_id=1210407635]
+custom_minimum_size = Vector2(200, 500)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_syfkn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HUD/MarginContainer/PanelContainer" unique_id=1671525103]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Upgrades" type="Label" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=1307428028]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Upgrades"
+
+[node name="Money" type="Label" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=511253895]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Money: 0"
+
+[node name="MaxSpawnBox" type="VBoxContainer" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=1539319555]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="MaxSpawnText" type="Label" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer/MaxSpawnBox" unique_id=278377810]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Max spawn: 0/sec"
+
+[node name="MaxSpawnUpgrade" type="Button" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer/MaxSpawnBox" unique_id=971340708]
+layout_mode = 2
+text = "Upgrade (cost: 50)"
+
+[node name="MoneyWinBox" type="VBoxContainer" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=1617422702]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="MoneyWinText" type="Label" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer/MoneyWinBox" unique_id=1093896718]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Money per Win: 5"
+
+[node name="MoneyWinUpgrade" type="Button" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer/MoneyWinBox" unique_id=1315654274]
+layout_mode = 2
+text = "Upgrade (cost: 50)"
+
+[connection signal="ball_spawned" from="GameController/UpgradeController/SpawnOnClick" to="GameController/UpgradeController" method="_on_spawn_on_click_ball_spawned"]
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
