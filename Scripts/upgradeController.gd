@@ -8,27 +8,27 @@ extends Node
 @export var maxSpawnUpgradeButton: Button
 
 # These define how much the stats improve per upgrade
-const COOLDOWN_REDUCTION = 0.1
-const MONEY_INCREMENT = 5
-var speed_upgrade_cost = 100
-var reward_upgrade_cost = 200
+const COOLDOWN_INCREMENT = 0.5
+const MONEY_INCREMENT = 50
 
 func _ready():
 	update_ui()
 
 func upgrade_spawn_speed():
-	if stats.money >= speed_upgrade_cost:
-		stats.money -= speed_upgrade_cost
-		stats.spawn_cooldown = max(0.2, stats.spawn_cooldown - COOLDOWN_REDUCTION)
-		speed_upgrade_cost *= 2
+	if stats.money >= stats.spawn_rate_upgrade_cost:
+		stats.money -= stats.spawn_rate_upgrade_cost
+		stats.spawn_rate = stats.spawn_rate + COOLDOWN_INCREMENT
+		stats.spawn_rate_upgrade_cost *= 1.2
+		update_money_label()
 		update_max_spawn_label()
 		update_max_spawn_upgrade_label()
 
 func upgrade_win_reward():
-	if stats.money >= reward_upgrade_cost:
-		stats.money -= reward_upgrade_cost
+	if stats.money >= stats.win_reward_upgrade_cost:
+		stats.money -= stats.win_reward_upgrade_cost
 		stats.win_reward += MONEY_INCREMENT
-		reward_upgrade_cost *= 2
+		stats.win_reward_upgrade_cost *= 1.2
+		update_money_label()
 		update_win_reward_label()
 		update_win_reward_upgrade_label()
 
@@ -59,10 +59,10 @@ func update_win_reward_upgrade_label():
 	winRewardUpgradeButton.text = "Upgrade (cost: " + str(stats.win_reward_upgrade_cost) + ")"
 
 func update_max_spawn_label():
-	maxSpawnLabel.text = "Max Spawn: " + str(1/stats.spawn_cooldown) + "/sec"
+	maxSpawnLabel.text = "Max Spawn: " + str(stats.spawn_rate) + "/sec"
 
 func update_max_spawn_upgrade_label():
-	maxSpawnUpgradeButton.text = "Upgrade (cost: " + str(speed_upgrade_cost) + ")"
+	maxSpawnUpgradeButton.text = "Upgrade (cost: " + str(stats.spawn_rate_upgrade_cost) + ")"
 
 
 func _on_spawn_on_click_ball_spawned() -> void:
@@ -70,3 +70,13 @@ func _on_spawn_on_click_ball_spawned() -> void:
 
 func _on_spawn_on_click_clicked() -> void:
 	add_money(-stats.click_cost)
+
+func _on_spawn_on_click_auto_spawn_toggled() -> void:
+	add_money(-stats.toggle_cost)
+
+
+func _on_win_reward_upgrade_pressed() -> void:
+	upgrade_win_reward()
+
+func _on_max_spawn_upgrade_pressed() -> void:
+	upgrade_spawn_speed()

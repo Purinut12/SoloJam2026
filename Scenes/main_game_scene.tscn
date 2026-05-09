@@ -9,6 +9,10 @@
 [ext_resource type="Script" uid="uid://bg51x6bpi4hc" path="res://Scripts/stats.gd" id="4_t40n3"]
 [ext_resource type="Script" uid="uid://c4q7g8cfpyoou" path="res://Scripts/upgradeController.gd" id="5_udhrh"]
 [ext_resource type="Texture2D" uid="uid://be4cyrtygmrc7" path="res://Sprites/Area Green.png" id="7_t25fw"]
+[ext_resource type="Script" uid="uid://cqu7jqabv03dg" path="res://Scripts/bucket.gd" id="9_mlj66"]
+[ext_resource type="Texture2D" uid="uid://cu38fmwkyx0ur" path="res://Sprites/bucket.png" id="9_y8s6f"]
+[ext_resource type="Script" uid="uid://5joa7x3l30mj" path="res://Scripts/bucket_receiver.gd" id="11_jl3vg"]
+[ext_resource type="AudioStream" uid="uid://dv1uyix65owek" path="res://Audio/SFX/coins 1.mp3" id="13_2f4cu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t25fw"]
 texture = ExtResource("2_hkk18")
@@ -65,32 +69,388 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_2f4cu"]
+font_size = 24
+
+[sub_resource type="Gradient" id="Gradient_g2nae"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t25fw"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_g2nae"]
+streams_count = 1
+stream_0/stream = ExtResource("13_2f4cu")
+
 [node name="MainGameScenes" type="Node2D" unique_id=2006252894]
 
-[node name="PostGroup" type="Node2D" parent="." unique_id=858193221]
+[node name="PostGroup" type="Node2D" parent="." unique_id=256408940]
+position = Vector2(0, -150)
 
 [node name="Post" parent="PostGroup" unique_id=324772121 instance=ExtResource("2_8mtfu")]
+position = Vector2(-7, -34)
 
-[node name="Post2" parent="PostGroup" unique_id=618760571 instance=ExtResource("2_8mtfu")]
-position = Vector2(-22, 24)
+[node name="Post2" parent="PostGroup" unique_id=105511384 instance=ExtResource("2_8mtfu")]
+position = Vector2(108, 105)
 
-[node name="Post3" parent="PostGroup" unique_id=253209478 instance=ExtResource("2_8mtfu")]
-position = Vector2(47, 51)
+[node name="Post3" parent="PostGroup" unique_id=1399587749 instance=ExtResource("2_8mtfu")]
+position = Vector2(-180, 71)
 
-[node name="Post4" parent="PostGroup" unique_id=1754240672 instance=ExtResource("2_8mtfu")]
-position = Vector2(27, 70)
+[node name="Post4" parent="PostGroup" unique_id=255595399 instance=ExtResource("2_8mtfu")]
+position = Vector2(-83, 162)
 
-[node name="Post5" parent="PostGroup" unique_id=570359889 instance=ExtResource("2_8mtfu")]
-position = Vector2(63, 27)
+[node name="Post5" parent="PostGroup" unique_id=326435797 instance=ExtResource("2_8mtfu")]
+position = Vector2(-261, 160)
 
-[node name="PostWithPendulum" parent="PostGroup" unique_id=958830932 instance=ExtResource("2_y8s6f")]
+[node name="Post6" parent="PostGroup" unique_id=2049195050 instance=ExtResource("2_8mtfu")]
+position = Vector2(-197, 49)
+
+[node name="Post7" parent="PostGroup" unique_id=1982261858 instance=ExtResource("2_8mtfu")]
+position = Vector2(-211, 116)
+
+[node name="Post8" parent="PostGroup" unique_id=2057184350 instance=ExtResource("2_8mtfu")]
+position = Vector2(-230, 114)
+
+[node name="Post9" parent="PostGroup" unique_id=240063770 instance=ExtResource("2_8mtfu")]
+position = Vector2(-243, 15)
+
+[node name="Post10" parent="PostGroup" unique_id=344452615 instance=ExtResource("2_8mtfu")]
+position = Vector2(-280, 112)
+
+[node name="Post11" parent="PostGroup" unique_id=374885862 instance=ExtResource("2_8mtfu")]
+position = Vector2(56, 117)
+
+[node name="Post12" parent="PostGroup" unique_id=1856662051 instance=ExtResource("2_8mtfu")]
+position = Vector2(141, 117)
+
+[node name="Post13" parent="PostGroup" unique_id=1427465833 instance=ExtResource("2_8mtfu")]
+position = Vector2(194, 101)
+
+[node name="Post14" parent="PostGroup" unique_id=777479870 instance=ExtResource("2_8mtfu")]
+position = Vector2(171, -13)
+
+[node name="Post15" parent="PostGroup" unique_id=1307821887 instance=ExtResource("2_8mtfu")]
+position = Vector2(183, 118)
+
+[node name="Post16" parent="PostGroup" unique_id=998937108 instance=ExtResource("2_8mtfu")]
+position = Vector2(267, -38)
+
+[node name="Post17" parent="PostGroup" unique_id=506847548 instance=ExtResource("2_8mtfu")]
+position = Vector2(284, -52)
+
+[node name="Post18" parent="PostGroup" unique_id=1395373344 instance=ExtResource("2_8mtfu")]
+position = Vector2(248, -21)
+
+[node name="Post19" parent="PostGroup" unique_id=877227909 instance=ExtResource("2_8mtfu")]
+position = Vector2(-71, -94)
+
+[node name="Post20" parent="PostGroup" unique_id=1911062429 instance=ExtResource("2_8mtfu")]
+position = Vector2(-90, -78)
+
+[node name="Post21" parent="PostGroup" unique_id=445990603 instance=ExtResource("2_8mtfu")]
+position = Vector2(-171, -57)
+
+[node name="Post22" parent="PostGroup" unique_id=1889593443 instance=ExtResource("2_8mtfu")]
+position = Vector2(-227, -49)
+
+[node name="Post23" parent="PostGroup" unique_id=1963366378 instance=ExtResource("2_8mtfu")]
+position = Vector2(-260, 0)
+
+[node name="Post24" parent="PostGroup" unique_id=336441317 instance=ExtResource("2_8mtfu")]
+position = Vector2(-278, -18)
+
+[node name="Post25" parent="PostGroup" unique_id=1871523229 instance=ExtResource("2_8mtfu")]
+position = Vector2(-247, 136)
+
+[node name="Post26" parent="PostGroup" unique_id=1218045751 instance=ExtResource("2_8mtfu")]
+position = Vector2(42, 218)
+
+[node name="Post27" parent="PostGroup" unique_id=2124636396 instance=ExtResource("2_8mtfu")]
+position = Vector2(-3, 151)
+
+[node name="Post29" parent="PostGroup" unique_id=1804715607 instance=ExtResource("2_8mtfu")]
+position = Vector2(-20, 166)
+
+[node name="Post30" parent="PostGroup" unique_id=1141525636 instance=ExtResource("2_8mtfu")]
+position = Vector2(-68, 205)
+
+[node name="Post31" parent="PostGroup" unique_id=579791825 instance=ExtResource("2_8mtfu")]
+position = Vector2(-89, 209)
+
+[node name="Post28" parent="PostGroup" unique_id=155742444 instance=ExtResource("2_8mtfu")]
+position = Vector2(33, 64)
+
+[node name="Post32" parent="PostGroup" unique_id=1216923442 instance=ExtResource("2_8mtfu")]
+position = Vector2(18, 80)
+
+[node name="Post33" parent="PostGroup" unique_id=1166087798 instance=ExtResource("2_8mtfu")]
+position = Vector2(45, 76)
+
+[node name="Post34" parent="PostGroup" unique_id=433931670 instance=ExtResource("2_8mtfu")]
+position = Vector2(23, 218)
+
+[node name="Post35" parent="PostGroup" unique_id=317654042 instance=ExtResource("2_8mtfu")]
+position = Vector2(-41, -36)
+
+[node name="Post36" parent="PostGroup" unique_id=1847787433 instance=ExtResource("2_8mtfu")]
+position = Vector2(-24, -36)
+
+[node name="Post37" parent="PostGroup" unique_id=372897789 instance=ExtResource("2_8mtfu")]
+position = Vector2(254, 109)
+
+[node name="Post38" parent="PostGroup" unique_id=1881279155 instance=ExtResource("2_8mtfu")]
+position = Vector2(241, 124)
+
+[node name="Post39" parent="PostGroup" unique_id=793897256 instance=ExtResource("2_8mtfu")]
+position = Vector2(269, 102)
+
+[node name="Post40" parent="PostGroup" unique_id=741988827 instance=ExtResource("2_8mtfu")]
+position = Vector2(230, 143)
+
+[node name="Post41" parent="PostGroup" unique_id=278414727 instance=ExtResource("2_8mtfu")]
+position = Vector2(10, 232)
+
+[node name="Post42" parent="PostGroup" unique_id=936757921 instance=ExtResource("2_8mtfu")]
+position = Vector2(-7, 250)
+
+[node name="Post43" parent="PostGroup" unique_id=1687266227 instance=ExtResource("2_8mtfu")]
+position = Vector2(88, 254)
+
+[node name="Post44" parent="PostGroup" unique_id=1121425468 instance=ExtResource("2_8mtfu")]
+position = Vector2(104, 236)
+
+[node name="Post45" parent="PostGroup" unique_id=1084511918 instance=ExtResource("2_8mtfu")]
+position = Vector2(122, 231)
+
+[node name="Post46" parent="PostGroup" unique_id=604581994 instance=ExtResource("2_8mtfu")]
+position = Vector2(142, 245)
+
+[node name="Post47" parent="PostGroup" unique_id=534066675 instance=ExtResource("2_8mtfu")]
+position = Vector2(-49, 257)
+
+[node name="Post48" parent="PostGroup" unique_id=1364910990 instance=ExtResource("2_8mtfu")]
+position = Vector2(63, -85)
+
+[node name="Post49" parent="PostGroup" unique_id=293131385 instance=ExtResource("2_8mtfu")]
+position = Vector2(75, -72)
+
+[node name="Post50" parent="PostGroup" unique_id=283513980 instance=ExtResource("2_8mtfu")]
+position = Vector2(93, -67)
+
+[node name="Post51" parent="PostGroup" unique_id=2098023526 instance=ExtResource("2_8mtfu")]
+position = Vector2(113, -59)
+
+[node name="Post52" parent="PostGroup" unique_id=468871056 instance=ExtResource("2_8mtfu")]
+position = Vector2(232, -6)
+
+[node name="Post54" parent="PostGroup" unique_id=1896665796 instance=ExtResource("2_8mtfu")]
+position = Vector2(-238, 90)
+
+[node name="Post53" parent="PostGroup" unique_id=731648907 instance=ExtResource("2_8mtfu")]
+position = Vector2(-184, -42)
+
+[node name="Post58" parent="PostGroup" unique_id=283310636 instance=ExtResource("2_8mtfu")]
+position = Vector2(-197, 252)
+
+[node name="Post57" parent="PostGroup" unique_id=1010251299 instance=ExtResource("2_8mtfu")]
+position = Vector2(-181, 266)
+
+[node name="Post56" parent="PostGroup" unique_id=1322072614 instance=ExtResource("2_8mtfu")]
+position = Vector2(-68, 264)
+
+[node name="Post59" parent="PostGroup" unique_id=365987789 instance=ExtResource("2_8mtfu")]
+position = Vector2(-161, 269)
+
+[node name="Post60" parent="PostGroup" unique_id=1580788489 instance=ExtResource("2_8mtfu")]
+position = Vector2(-264, 277)
+
+[node name="Post61" parent="PostGroup" unique_id=1645747587 instance=ExtResource("2_8mtfu")]
+position = Vector2(188, 261)
+
+[node name="Post62" parent="PostGroup" unique_id=1092230252 instance=ExtResource("2_8mtfu")]
+position = Vector2(204, 245)
+
+[node name="Post63" parent="PostGroup" unique_id=1956972369 instance=ExtResource("2_8mtfu")]
+position = Vector2(220, 230)
+
+[node name="Post64" parent="PostGroup" unique_id=177720209 instance=ExtResource("2_8mtfu")]
+position = Vector2(238, 243)
+
+[node name="Post65" parent="PostGroup" unique_id=2076354997 instance=ExtResource("2_8mtfu")]
+position = Vector2(251, 258)
+
+[node name="Post66" parent="PostGroup" unique_id=1781133751 instance=ExtResource("2_8mtfu")]
+position = Vector2(252, 194)
+
+[node name="Post68" parent="PostGroup" unique_id=851579217 instance=ExtResource("2_8mtfu")]
+position = Vector2(-5, 61)
+
+[node name="Post69" parent="PostGroup" unique_id=104413836 instance=ExtResource("2_8mtfu")]
+position = Vector2(38, 117)
+
+[node name="Post67" parent="PostGroup" unique_id=1349080676 instance=ExtResource("2_8mtfu")]
+position = Vector2(268, 180)
+
+[node name="Post70" parent="PostGroup" unique_id=926492470 instance=ExtResource("2_8mtfu")]
+position = Vector2(-45, 44)
+
+[node name="Post71" parent="PostGroup" unique_id=446215061 instance=ExtResource("2_8mtfu")]
+position = Vector2(-32, 182)
+
+[node name="Post72" parent="PostGroup" unique_id=92939587 instance=ExtResource("2_8mtfu")]
+position = Vector2(-216, 241)
+
+[node name="Post73" parent="PostGroup" unique_id=918833295 instance=ExtResource("2_8mtfu")]
+position = Vector2(-237, 235)
+
+[node name="Post74" parent="PostGroup" unique_id=403199631 instance=ExtResource("2_8mtfu")]
+position = Vector2(-246, 288)
+
+[node name="Post75" parent="PostGroup" unique_id=491167292 instance=ExtResource("2_8mtfu")]
+position = Vector2(-285, 269)
+
+[node name="Post76" parent="PostGroup" unique_id=912792430 instance=ExtResource("2_8mtfu")]
+position = Vector2(-298, 254)
+
+[node name="Post77" parent="PostGroup" unique_id=586057178 instance=ExtResource("2_8mtfu")]
+position = Vector2(292, 259)
+
+[node name="Post78" parent="PostGroup" unique_id=40204779 instance=ExtResource("2_8mtfu")]
+position = Vector2(67, 337)
+
+[node name="Post79" parent="PostGroup" unique_id=764041015 instance=ExtResource("2_8mtfu")]
+position = Vector2(168, 308)
+
+[node name="Post80" parent="PostGroup" unique_id=2096192182 instance=ExtResource("2_8mtfu")]
+position = Vector2(201, 429)
+
+[node name="Post81" parent="PostGroup" unique_id=435771945 instance=ExtResource("2_8mtfu")]
+position = Vector2(177, 434)
+
+[node name="Post82" parent="PostGroup" unique_id=1696152016 instance=ExtResource("2_8mtfu")]
+position = Vector2(219, 437)
+
+[node name="Post83" parent="PostGroup" unique_id=246851834 instance=ExtResource("2_8mtfu")]
+position = Vector2(-5, 317)
+
+[node name="Post84" parent="PostGroup" unique_id=351851855 instance=ExtResource("2_8mtfu")]
+position = Vector2(-25, 301)
+
+[node name="Post85" parent="PostGroup" unique_id=678023012 instance=ExtResource("2_8mtfu")]
+position = Vector2(-45, 315)
+
+[node name="Post86" parent="PostGroup" unique_id=610270122 instance=ExtResource("2_8mtfu")]
+position = Vector2(11, 334)
+
+[node name="Post87" parent="PostGroup" unique_id=1602841570 instance=ExtResource("2_8mtfu")]
+position = Vector2(-65, 331)
+
+[node name="Post88" parent="PostGroup" unique_id=846182686 instance=ExtResource("2_8mtfu")]
+position = Vector2(57, 443)
+
+[node name="Post89" parent="PostGroup" unique_id=337950449 instance=ExtResource("2_8mtfu")]
+position = Vector2(-22, 434)
+
+[node name="Post90" parent="PostGroup" unique_id=306816787 instance=ExtResource("2_8mtfu")]
+position = Vector2(-74, 446)
+
+[node name="Post91" parent="PostGroup" unique_id=1248846537 instance=ExtResource("2_8mtfu")]
+position = Vector2(-93, 437)
+
+[node name="Post92" parent="PostGroup" unique_id=1035552340 instance=ExtResource("2_8mtfu")]
+position = Vector2(-110, 450)
+
+[node name="Post93" parent="PostGroup" unique_id=1733095307 instance=ExtResource("2_8mtfu")]
+position = Vector2(-127, 455)
+
+[node name="Post94" parent="PostGroup" unique_id=1029534850 instance=ExtResource("2_8mtfu")]
+position = Vector2(-153, 457)
+
+[node name="Post95" parent="PostGroup" unique_id=617328950 instance=ExtResource("2_8mtfu")]
+position = Vector2(-210, 458)
+
+[node name="Post96" parent="PostGroup" unique_id=1337303976 instance=ExtResource("2_8mtfu")]
+position = Vector2(-192, 343)
+
+[node name="Post97" parent="PostGroup" unique_id=1976593441 instance=ExtResource("2_8mtfu")]
+position = Vector2(-113, 305)
+
+[node name="Post98" parent="PostGroup" unique_id=1079888366 instance=ExtResource("2_8mtfu")]
+position = Vector2(-99, 287)
+
+[node name="Post99" parent="PostGroup" unique_id=331978874 instance=ExtResource("2_8mtfu")]
+position = Vector2(-224, 448)
+
+[node name="Post100" parent="PostGroup" unique_id=2116849544 instance=ExtResource("2_8mtfu")]
+position = Vector2(-241, 434)
+
+[node name="Post101" parent="PostGroup" unique_id=811115391 instance=ExtResource("2_8mtfu")]
+position = Vector2(-256, 448)
+
+[node name="Post102" parent="PostGroup" unique_id=1472049246 instance=ExtResource("2_8mtfu")]
+position = Vector2(-264, 394)
+
+[node name="Post103" parent="PostGroup" unique_id=1045006907 instance=ExtResource("2_8mtfu")]
+position = Vector2(-270, 373)
+
+[node name="Post104" parent="PostGroup" unique_id=1741866541 instance=ExtResource("2_8mtfu")]
+position = Vector2(9, 408)
+
+[node name="Post105" parent="PostGroup" unique_id=1939782797 instance=ExtResource("2_8mtfu")]
+position = Vector2(-34, 408)
+
+[node name="Post106" parent="PostGroup" unique_id=1781049368 instance=ExtResource("2_8mtfu")]
+position = Vector2(72, 455)
+
+[node name="Post107" parent="PostGroup" unique_id=481867922 instance=ExtResource("2_8mtfu")]
+position = Vector2(91, 459)
+
+[node name="Post108" parent="PostGroup" unique_id=971746827 instance=ExtResource("2_8mtfu")]
+position = Vector2(161, 440)
+
+[node name="Post109" parent="PostGroup" unique_id=1053880631 instance=ExtResource("2_8mtfu")]
+position = Vector2(147, 451)
+
+[node name="Post110" parent="PostGroup" unique_id=822826938 instance=ExtResource("2_8mtfu")]
+position = Vector2(241, -95)
+
+[node name="Post111" parent="PostGroup" unique_id=1812326062 instance=ExtResource("2_8mtfu")]
+position = Vector2(224, -81)
+
+[node name="Post112" parent="PostGroup" unique_id=1497235566 instance=ExtResource("2_8mtfu")]
+position = Vector2(208, -67)
+
+[node name="Post55" parent="PostGroup" unique_id=789433911 instance=ExtResource("2_8mtfu")]
+position = Vector2(-103, 229)
+
+[node name="PendulumGroup" type="Node2D" parent="." unique_id=858193221]
+position = Vector2(0, -150)
+
+[node name="PostWithPendulum" parent="PendulumGroup" unique_id=958830932 instance=ExtResource("2_y8s6f")]
 position = Vector2(-145, -54)
 
-[node name="PostWithPendulum2" parent="PostGroup" unique_id=664697057 instance=ExtResource("2_y8s6f")]
+[node name="PostWithPendulum2" parent="PendulumGroup" unique_id=664697057 instance=ExtResource("2_y8s6f")]
 position = Vector2(-99, 46)
 
-[node name="PostWithPendulum3" parent="PostGroup" unique_id=224965801 instance=ExtResource("2_y8s6f")]
-position = Vector2(120, -5)
+[node name="PostWithPendulum3" parent="PendulumGroup" unique_id=224965801 instance=ExtResource("2_y8s6f")]
+position = Vector2(149, -5)
+
+[node name="PostWithPendulum4" parent="PendulumGroup" unique_id=472841251 instance=ExtResource("2_y8s6f")]
+position = Vector2(78, 112)
+
+[node name="PostWithPendulum5" parent="PendulumGroup" unique_id=232750287 instance=ExtResource("2_y8s6f")]
+position = Vector2(-198, 133)
+
+[node name="PostWithPendulum7" parent="PendulumGroup" unique_id=2131117459 instance=ExtResource("2_y8s6f")]
+position = Vector2(-170, 334)
+
+[node name="PostWithPendulum8" parent="PendulumGroup" unique_id=756536524 instance=ExtResource("2_y8s6f")]
+position = Vector2(210, 298)
+
+[node name="PostWithPendulum9" parent="PendulumGroup" unique_id=1781335571 instance=ExtResource("2_y8s6f")]
+position = Vector2(88, 331)
+
+[node name="PostWithPendulum6" parent="PendulumGroup" unique_id=1739457694 instance=ExtResource("2_y8s6f")]
+position = Vector2(12, -54)
 
 [node name="Wall" type="Node2D" parent="." unique_id=393139775]
 
@@ -121,7 +481,7 @@ stats = NodePath("../../Stats")
 valid_area = NodePath("../../../SpawnArea")
 
 [node name="SpawnArea" type="Area2D" parent="." unique_id=1332385132]
-position = Vector2(0, -170)
+position = Vector2(0, -320)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnArea" unique_id=2094055421]
 scale = Vector2(24, 5)
@@ -177,17 +537,19 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 text = "Upgrades"
+label_settings = SubResource("LabelSettings_2f4cu")
 
 [node name="Money" type="Label" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=511253895]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Money: 0"
 
-[node name="Label" type="Label" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=1072554138]
+[node name="CostPer" type="Label" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=1072554138]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Cost per ball: 1
-Cost per click: 1"
+Cost per click (anywhere): 1"
+horizontal_alignment = 1
 
 [node name="WinRewardBox" type="VBoxContainer" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=1617422702]
 layout_mode = 2
@@ -217,6 +579,62 @@ text = "Max spawn: 0/sec"
 layout_mode = 2
 text = "Upgrade (cost: 50)"
 
+[node name="AutoSpawnBox" type="VBoxContainer" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=405981519]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="AutoSpawnText" type="Label" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer/AutoSpawnBox" unique_id=268908039]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Auto Spawn (at cursor)
+Toggle cost: 10"
+horizontal_alignment = 1
+
+[node name="AutoSpawnToggle" type="CheckButton" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer/AutoSpawnBox" unique_id=1959501033]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Bucket" type="Node2D" parent="." unique_id=1873198481]
+position = Vector2(0, 350)
+script = ExtResource("9_mlj66")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Bucket" unique_id=1562539292]
+emitting = false
+amount = 50
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(20, 1)
+direction = Vector2(0, -1)
+spread = 20.0
+initial_velocity_min = 300.0
+initial_velocity_max = 500.0
+color = Color(0.9098039, 0.75686276, 0.4392157, 1)
+color_ramp = SubResource("Gradient_g2nae")
+
+[node name="Sprite2D" type="Sprite2D" parent="Bucket" unique_id=578511283]
+texture = ExtResource("9_y8s6f")
+
+[node name="Area2D" type="Area2D" parent="Bucket" unique_id=1859500928 node_paths=PackedStringArray("upgradeController", "particles", "sfx_player")]
+script = ExtResource("11_jl3vg")
+upgradeController = NodePath("../../GameController/UpgradeController")
+particles = NodePath("../CPUParticles2D")
+sfx_player = NodePath("../AudioStreamPlayer2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bucket/Area2D" unique_id=1241211686]
+scale = Vector2(3.5, 1)
+shape = SubResource("RectangleShape2D_t25fw")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Bucket" unique_id=525116]
+stream = SubResource("AudioStreamRandomizer_g2nae")
+
+[connection signal="auto_spawn_toggled" from="GameController/UpgradeController/SpawnOnClick" to="GameController/UpgradeController" method="_on_spawn_on_click_auto_spawn_toggled"]
 [connection signal="ball_spawned" from="GameController/UpgradeController/SpawnOnClick" to="GameController/UpgradeController" method="_on_spawn_on_click_ball_spawned"]
 [connection signal="clicked" from="GameController/UpgradeController/SpawnOnClick" to="GameController/UpgradeController" method="_on_spawn_on_click_clicked"]
 [connection signal="body_entered" from="DespawnArea" to="DespawnArea" method="_on_body_entered"]
+[connection signal="pressed" from="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer/WinRewardBox/WinRewardUpgrade" to="GameController/UpgradeController" method="_on_win_reward_upgrade_pressed"]
+[connection signal="pressed" from="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer/MaxSpawnBox/MaxSpawnUpgrade" to="GameController/UpgradeController" method="_on_max_spawn_upgrade_pressed"]
+[connection signal="toggled" from="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer/AutoSpawnBox/AutoSpawnToggle" to="GameController/UpgradeController/SpawnOnClick" method="_on_auto_spawn_toggle_toggled"]
