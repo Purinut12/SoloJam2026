@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://b04eq2wqdxilc"]
+
+[ext_resource type="PackedScene" uid="uid://bai67cxuy1fcy" path="res://Prefabs/Objects/ball.tscn" id="1_wb2by"]
+[ext_resource type="PackedScene" uid="uid://k6qatse244j8" path="res://Prefabs/Objects/post.tscn" id="2_8mtfu"]
+[ext_resource type="Script" uid="uid://37pcgess2fgo" path="res://Scripts/spawn_on_click.gd" id="3_wb2by"]
+[ext_resource type="Script" uid="uid://bh61662te7wxb" path="res://Scripts/destory_on_enter.gd" id="4_syfkn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wb2by"]
+
+[node name="MainGameScenes" type="Node2D" unique_id=2006252894]
+
+[node name="Post" parent="." unique_id=324772121 instance=ExtResource("2_8mtfu")]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=444447615]
+
+[node name="Post2" parent="." unique_id=618760571 instance=ExtResource("2_8mtfu")]
+position = Vector2(-22, 24)
+
+[node name="Post3" parent="." unique_id=253209478 instance=ExtResource("2_8mtfu")]
+position = Vector2(47, 51)
+
+[node name="Post4" parent="." unique_id=1754240672 instance=ExtResource("2_8mtfu")]
+position = Vector2(27, 70)
+
+[node name="Post5" parent="." unique_id=570359889 instance=ExtResource("2_8mtfu")]
+position = Vector2(63, 27)
+
+[node name="GameController" type="Node2D" parent="." unique_id=945408464]
+
+[node name="SpawnOnClick" type="Node2D" parent="GameController" unique_id=933727081]
+script = ExtResource("3_wb2by")
+Ball = ExtResource("1_wb2by")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=621370730]
+position = Vector2(0, 130)
+scale = Vector2(50, 2)
+script = ExtResource("4_syfkn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1475838781]
+shape = SubResource("RectangleShape2D_wb2by")
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]

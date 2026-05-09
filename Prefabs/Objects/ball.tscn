@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://bai67cxuy1fcy"]
+
+[ext_resource type="Texture2D" uid="uid://dy7xsumqsdwa2" path="res://Sprites/Bullet.png" id="1_jess7"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bkcmx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x83m5"]
+
+[node name="Ball" type="RigidBody2D" unique_id=707892521]
+physics_material_override = SubResource("PhysicsMaterial_bkcmx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1209126342]
+shape = SubResource("CircleShape2D_x83m5")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1609781917]
+texture = ExtResource("1_jess7")
