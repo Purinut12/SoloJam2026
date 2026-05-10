@@ -92,31 +92,31 @@ func update_ui():
 	update_shake_label()
 	
 func update_money_label():
-	moneyLabel.text = "Money: " + str(stats.money)
+	moneyLabel.text = "Money: " + format_number_with_commas(stats.money)
 	
 func update_win_reward_label():
-	winRewardLabel.text = "Money per Win: " + str(stats.win_reward)
+	winRewardLabel.text = "Money per Win: " + format_number_with_commas(stats.win_reward)
 
 func update_win_reward_upgrade_label():
-	winRewardUpgradeButton.text = "Upgrade (" + str(stats.win_reward_upgrade_cost) + ")"
+	winRewardUpgradeButton.text = "Upgrade (" + format_number_with_commas(stats.win_reward_upgrade_cost) + ")"
 
 func update_max_spawn_label():
-	maxSpawnLabel.text = "Max Spawn: " + str(stats.spawn_rate) + "/sec"
+	maxSpawnLabel.text = "Max Spawn: " + format_number_with_commas(stats.spawn_rate) + "/sec"
 
 func update_max_spawn_upgrade_label():
-	maxSpawnUpgradeButton.text = "Upgrade (" + str(stats.spawn_rate_upgrade_cost) + ")"
+	maxSpawnUpgradeButton.text = "Upgrade (" + format_number_with_commas(stats.spawn_rate_upgrade_cost) + ")"
 
 func update_bucket_label():
-	bucketLabel.text = "Buckets: " + str(stats.bucket)
+	bucketLabel.text = "Buckets: " + format_number_with_commas(stats.bucket)
 
 func update_bucket_upgrade_label():
-	bucketUpgradeButton.text = "Upgrade (" + str(stats.bucket_upgrade_cost) + ")"
+	bucketUpgradeButton.text = "Upgrade (" + format_number_with_commas(stats.bucket_upgrade_cost) + ")"
 
 func update_auto_spawn_number_label():
-	autoSpawnNumberLabel.text = "Auto Spawner: " + str(stats.auto_spawn_level)
+	autoSpawnNumberLabel.text = "Auto Spawner: " + format_number_with_commas(stats.auto_spawn_level)
 
 func update_auto_spawn_number_upgrade_label():
-	autoSpawnNumberUpgradeButton.text = "Upgrade (" + str(stats.auto_spawn_upgrade_cost) + ")"
+	autoSpawnNumberUpgradeButton.text = "Upgrade (" + format_number_with_commas(stats.auto_spawn_upgrade_cost) + ")"
 
 func update_shake_label():
 	shakeButton.text = "Shake (" + str(get_shake_cost()) + ")"
@@ -148,3 +148,19 @@ func _on_auto_spawn_button_pressed() -> void:
 
 func _on_shake_button_shake_screen_signal() -> void:
 	add_money(-get_shake_cost())
+
+
+func format_number_with_commas(number: int) -> String:
+	var num_str: String = str(abs(number))
+	var result: String = ""
+	var count: int = 0
+	
+	for i in range(num_str.length() - 1, -1, -1):
+		result = num_str[i] + result
+		count += 1
+		if count % 3 == 0 and i != 0:
+			result = "," + result
+			
+	if number < 0:
+		result = "-" + result
+	return result
