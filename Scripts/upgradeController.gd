@@ -150,17 +150,28 @@ func _on_shake_button_shake_screen_signal() -> void:
 	add_money(-get_shake_cost())
 
 
-func format_number_with_commas(number: int) -> String:
-	var num_str: String = str(abs(number))
-	var result: String = ""
-	var count: int = 0
+func format_number_with_commas(number: Variant) -> String:
+	var val_float = float(number)
+	var is_negative = val_float < 0
+	var full_str = str(abs(val_float))
 	
-	for i in range(num_str.length() - 1, -1, -1):
-		result = num_str[i] + result
+	var parts = full_str.split(".")
+	var int_part = parts[0]
+	var dec_part = parts[1] if parts.size() > 1 else ""
+	
+	var formatted_int = ""
+	var count = 0
+	for i in range(int_part.length() - 1, -1, -1):
+		formatted_int = int_part[i] + formatted_int
 		count += 1
 		if count % 3 == 0 and i != 0:
-			result = "," + result
+			formatted_int = "," + formatted_int
 			
-	if number < 0:
+	var result = formatted_int
+	if dec_part != "":
+		result += "." + dec_part
+		
+	if is_negative:
 		result = "-" + result
+		
 	return result
