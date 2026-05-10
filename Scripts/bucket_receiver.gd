@@ -5,6 +5,7 @@ extends Area2D
 @export var sfx_player: AudioStreamPlayer2D
 
 func _ready():
+	upgradeController = get_tree().get_first_node_in_group("upgrade_controller")
 	body_entered.connect(_on_body_entered)
 
 func _on_body_entered(body: Node2D):

@@ -3,6 +3,7 @@ extends Node2D
 @export var Ball: PackedScene
 @export var stats: Node
 @export var valid_area: Area2D
+@export var spawn_rate: float = 0.5
 
 var last_spawn_time = 0.0
 var is_auto_spawn_enabled: bool = false
@@ -24,7 +25,7 @@ func _input(event):
 
 func try_spawn(spawn_pos: Vector2):
 	var current_time = Time.get_ticks_msec() / 1000.0
-	var cooldown = 1.0 / stats.spawn_rate
+	var cooldown = 1.0 / spawn_rate
 	
 	if (current_time - last_spawn_time) < cooldown: return
 	if stats.money < stats.spawn_cost: return
@@ -35,8 +36,8 @@ func try_spawn(spawn_pos: Vector2):
 	last_spawn_time = current_time
 	
 	var instance = Ball.instantiate()
-	add_child(instance)
 	instance.position = spawn_pos
+	add_child(instance)
 	instance.add_to_group("ball")
 	ball_spawned.emit()
 
@@ -53,3 +54,7 @@ func is_point_in_valid_area(pos: Vector2) -> bool:
 func _on_auto_spawn_toggle_toggled(toggled_on: bool) -> void:
 	is_auto_spawn_enabled = toggled_on
 	auto_spawn_toggled.emit()
+
+
+func _on_upgrade_controller_spawn_rate_upgraded(rate: float, _level: int) -> void:
+	spawn_rate = rate
