@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://lx57ujxjd6ah"
+path="res://.godot/imported/Pachinko Pajingle.mp3-2c357ae69f7beb182eb76696fb47499c.mp3str"
+
+[deps]
+
+source_file="res://Audio/Music/Pachinko Pajingle.mp3"
+dest_files=["res://.godot/imported/Pachinko Pajingle.mp3-2c357ae69f7beb182eb76696fb47499c.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

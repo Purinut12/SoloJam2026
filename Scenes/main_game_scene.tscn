@@ -9,10 +9,17 @@
 [ext_resource type="Script" uid="uid://bg51x6bpi4hc" path="res://Scripts/stats.gd" id="4_t40n3"]
 [ext_resource type="Script" uid="uid://c4q7g8cfpyoou" path="res://Scripts/upgradeController.gd" id="5_udhrh"]
 [ext_resource type="Texture2D" uid="uid://be4cyrtygmrc7" path="res://Sprites/Area Green.png" id="7_t25fw"]
+[ext_resource type="AudioStream" uid="uid://lx57ujxjd6ah" path="res://Audio/Music/Pachinko Pajingle.mp3" id="8_dn7sn"]
 [ext_resource type="Script" uid="uid://cqu7jqabv03dg" path="res://Scripts/bucket.gd" id="9_mlj66"]
 [ext_resource type="Texture2D" uid="uid://cu38fmwkyx0ur" path="res://Sprites/bucket.png" id="9_y8s6f"]
+[ext_resource type="Script" uid="uid://cn00uxpq4ee36" path="res://Scripts/mouse_particle.gd" id="11_1achy"]
 [ext_resource type="Script" uid="uid://5joa7x3l30mj" path="res://Scripts/bucket_receiver.gd" id="11_jl3vg"]
+[ext_resource type="Texture2D" uid="uid://bfd51xffhueg1" path="res://Sprites/bg.png" id="11_vlxgi"]
+[ext_resource type="Script" uid="uid://ckagwcu3wgtcg" path="res://Scripts/shake.gd" id="11_wgi8v"]
 [ext_resource type="AudioStream" uid="uid://dv1uyix65owek" path="res://Audio/SFX/coins 1.mp3" id="13_2f4cu"]
+[ext_resource type="Script" uid="uid://df1tufu05jy8a" path="res://Scripts/fade_out_after_click.gd" id="15_rjul1"]
+[ext_resource type="Script" uid="uid://6hnv1b3gx7q5" path="res://Scripts/restart_ui.gd" id="16_03yvr"]
+[ext_resource type="Script" uid="uid://dtp58i3amxfii" path="res://Scripts/restart_scene.gd" id="16_snms7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t25fw"]
 texture = ExtResource("2_hkk18")
@@ -58,6 +65,9 @@ sources/0 = SubResource("TileSetAtlasSource_y8s6f")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wb2by"]
 
+[sub_resource type="Gradient" id="Gradient_1achy"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_syfkn"]
 content_margin_left = 10.0
 content_margin_top = 10.0
@@ -80,6 +90,9 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_g2nae"]
 streams_count = 1
 stream_0/stream = ExtResource("13_2f4cu")
+
+[sub_resource type="LabelSettings" id="LabelSettings_rjul1"]
+font_size = 32
 
 [node name="MainGameScenes" type="Node2D" unique_id=2006252894]
 
@@ -465,20 +478,25 @@ tile_set = SubResource("TileSet_udhrh")
 [node name="Stats" type="Node2D" parent="GameController" unique_id=1515940436]
 script = ExtResource("4_t40n3")
 
-[node name="UpgradeController" type="Node2D" parent="GameController" unique_id=1075821509 node_paths=PackedStringArray("stats", "moneyLabel", "winRewardLabel", "winRewardUpgradeButton", "maxSpawnLabel", "maxSpawnUpgradeButton")]
-script = ExtResource("5_udhrh")
-stats = NodePath("../Stats")
-moneyLabel = NodePath("../../CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer/Money")
-winRewardLabel = NodePath("../../CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer/WinRewardBox/WinRewardText")
-winRewardUpgradeButton = NodePath("../../CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer/WinRewardBox/WinRewardUpgrade")
-maxSpawnLabel = NodePath("../../CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer/MaxSpawnBox/MaxSpawnText")
-maxSpawnUpgradeButton = NodePath("../../CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer/MaxSpawnBox/MaxSpawnUpgrade")
-
-[node name="SpawnOnClick" type="Node2D" parent="GameController/UpgradeController" unique_id=933727081 node_paths=PackedStringArray("stats", "valid_area")]
+[node name="SpawnOnClick" type="Node2D" parent="GameController" unique_id=933727081 node_paths=PackedStringArray("stats", "valid_area")]
 script = ExtResource("3_wb2by")
 Ball = ExtResource("1_wb2by")
-stats = NodePath("../../Stats")
-valid_area = NodePath("../../../SpawnArea")
+stats = NodePath("../Stats")
+valid_area = NodePath("../../SpawnArea")
+
+[node name="UpgradeController" type="Node2D" parent="GameController" unique_id=1075821509 node_paths=PackedStringArray("stats", "moneyLabel", "winRewardLabel", "winRewardUpgradeButton", "maxSpawnLabel", "maxSpawnUpgradeButton", "shakeLabel")]
+script = ExtResource("5_udhrh")
+stats = NodePath("../Stats")
+moneyLabel = NodePath("../../MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/Money")
+winRewardLabel = NodePath("../../MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/WinRewardBox/WinRewardText")
+winRewardUpgradeButton = NodePath("../../MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/WinRewardBox/WinRewardUpgrade")
+maxSpawnLabel = NodePath("../../MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/MaxSpawnBox/MaxSpawnText")
+maxSpawnUpgradeButton = NodePath("../../MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/MaxSpawnBox/MaxSpawnUpgrade")
+shakeLabel = NodePath("../../MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/Shake/ShakeText")
+
+[node name="Music" type="AudioStreamPlayer2D" parent="GameController" unique_id=1422728800]
+stream = ExtResource("8_dn7sn")
+autoplay = true
 
 [node name="SpawnArea" type="Area2D" parent="." unique_id=1332385132]
 position = Vector2(0, -320)
@@ -499,9 +517,96 @@ script = ExtResource("4_syfkn")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DespawnArea" unique_id=1475838781]
 shape = SubResource("RectangleShape2D_wb2by")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=632596281]
+[node name="BG" type="CanvasLayer" parent="." unique_id=486783639]
+layer = -1
 
-[node name="HUD" type="Control" parent="CanvasLayer" unique_id=779367772]
+[node name="Sprite2D" type="Sprite2D" parent="BG" unique_id=518559139]
+z_index = -100
+texture = ExtResource("11_vlxgi")
+
+[node name="MouseParticles" type="Node2D" parent="." unique_id=1731778293 node_paths=PackedStringArray("particles")]
+position = Vector2(910, 570.5)
+script = ExtResource("11_1achy")
+particles = [NodePath("CPUParticles2D"), NodePath("CPUParticles2D2"), NodePath("CPUParticles2D3"), NodePath("CPUParticles2D4"), NodePath("CPUParticles2D5")]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="MouseParticles" unique_id=705180543]
+emitting = false
+amount = 12
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+linear_accel_min = -150.0
+linear_accel_max = -150.0
+color = Color(0.8156863, 0.85490197, 0.5686275, 1)
+color_ramp = SubResource("Gradient_1achy")
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="MouseParticles" unique_id=633286963]
+emitting = false
+amount = 12
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+linear_accel_min = -150.0
+linear_accel_max = -150.0
+color = Color(0.8156863, 0.85490197, 0.5686275, 1)
+color_ramp = SubResource("Gradient_1achy")
+
+[node name="CPUParticles2D3" type="CPUParticles2D" parent="MouseParticles" unique_id=1270577926]
+emitting = false
+amount = 12
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+linear_accel_min = -150.0
+linear_accel_max = -150.0
+color = Color(0.8156863, 0.85490197, 0.5686275, 1)
+color_ramp = SubResource("Gradient_1achy")
+
+[node name="CPUParticles2D4" type="CPUParticles2D" parent="MouseParticles" unique_id=682996573]
+emitting = false
+amount = 12
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+linear_accel_min = -150.0
+linear_accel_max = -150.0
+color = Color(0.8156863, 0.85490197, 0.5686275, 1)
+color_ramp = SubResource("Gradient_1achy")
+
+[node name="CPUParticles2D5" type="CPUParticles2D" parent="MouseParticles" unique_id=1769824802]
+emitting = false
+amount = 12
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+linear_accel_min = -150.0
+linear_accel_max = -150.0
+color = Color(0.8156863, 0.85490197, 0.5686275, 1)
+color_ramp = SubResource("Gradient_1achy")
+
+[node name="MainUI" type="CanvasLayer" parent="." unique_id=632596281]
+
+[node name="HUD" type="Control" parent="MainUI" unique_id=779367772]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -509,7 +614,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD" unique_id=1541148034]
+[node name="MarginContainer" type="MarginContainer" parent="MainUI/HUD" unique_id=1541148034]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -523,67 +628,67 @@ grow_horizontal = 0
 grow_vertical = 2
 theme_override_constants/margin_right = 20
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/HUD/MarginContainer" unique_id=1210407635]
+[node name="PanelContainer" type="PanelContainer" parent="MainUI/HUD/MarginContainer" unique_id=1210407635]
 custom_minimum_size = Vector2(200, 500)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_syfkn")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HUD/MarginContainer/PanelContainer" unique_id=1671525103]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainUI/HUD/MarginContainer/PanelContainer" unique_id=1671525103]
 layout_mode = 2
 theme_override_constants/separation = 30
 
-[node name="Upgrades" type="Label" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=1307428028]
+[node name="Upgrades" type="Label" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=1307428028]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 text = "Upgrades"
 label_settings = SubResource("LabelSettings_2f4cu")
 
-[node name="Money" type="Label" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=511253895]
+[node name="Money" type="Label" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=511253895]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Money: 0"
 
-[node name="CostPer" type="Label" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=1072554138]
+[node name="CostPer" type="Label" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=1072554138]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Cost per ball: 1
 Cost per click (anywhere): 1"
 horizontal_alignment = 1
 
-[node name="WinRewardBox" type="VBoxContainer" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=1617422702]
+[node name="WinRewardBox" type="VBoxContainer" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=1617422702]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="WinRewardText" type="Label" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer/WinRewardBox" unique_id=1093896718]
+[node name="WinRewardText" type="Label" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/WinRewardBox" unique_id=1093896718]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 text = "Money per Win: 5"
 
-[node name="WinRewardUpgrade" type="Button" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer/WinRewardBox" unique_id=1315654274]
+[node name="WinRewardUpgrade" type="Button" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/WinRewardBox" unique_id=1315654274]
 layout_mode = 2
 text = "Upgrade (cost: 50)"
 
-[node name="MaxSpawnBox" type="VBoxContainer" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=1539319555]
+[node name="MaxSpawnBox" type="VBoxContainer" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=1539319555]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="MaxSpawnText" type="Label" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer/MaxSpawnBox" unique_id=278377810]
+[node name="MaxSpawnText" type="Label" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/MaxSpawnBox" unique_id=278377810]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 text = "Max spawn: 0/sec"
 
-[node name="MaxSpawnUpgrade" type="Button" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer/MaxSpawnBox" unique_id=971340708]
+[node name="MaxSpawnUpgrade" type="Button" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/MaxSpawnBox" unique_id=971340708]
 layout_mode = 2
 text = "Upgrade (cost: 50)"
 
-[node name="AutoSpawnBox" type="VBoxContainer" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=405981519]
+[node name="AutoSpawnBox" type="VBoxContainer" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=405981519]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="AutoSpawnText" type="Label" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer/AutoSpawnBox" unique_id=268908039]
+[node name="AutoSpawnText" type="Label" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/AutoSpawnBox" unique_id=268908039]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -591,9 +696,23 @@ text = "Auto Spawn (at cursor)
 Toggle cost: 10"
 horizontal_alignment = 1
 
-[node name="AutoSpawnToggle" type="CheckButton" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer/AutoSpawnBox" unique_id=1959501033]
+[node name="AutoSpawnToggle" type="CheckButton" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/AutoSpawnBox" unique_id=1959501033]
 layout_mode = 2
 size_flags_horizontal = 4
+
+[node name="Shake" type="VBoxContainer" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=405811897]
+layout_mode = 2
+
+[node name="ShakeText" type="Label" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/Shake" unique_id=1397289656]
+layout_mode = 2
+text = "cost: 0"
+horizontal_alignment = 1
+
+[node name="ShakeButton" type="Button" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/Shake" unique_id=1436543945 node_paths=PackedStringArray("camera")]
+layout_mode = 2
+text = "Shake"
+script = ExtResource("11_wgi8v")
+camera = NodePath("../../../../../../../Camera2D")
 
 [node name="Bucket" type="Node2D" parent="." unique_id=1873198481]
 position = Vector2(0, 350)
@@ -615,13 +734,77 @@ initial_velocity_max = 500.0
 color = Color(0.9098039, 0.75686276, 0.4392157, 1)
 color_ramp = SubResource("Gradient_g2nae")
 
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="Bucket" unique_id=1037452641]
+emitting = false
+amount = 50
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(20, 1)
+direction = Vector2(0, -1)
+spread = 20.0
+initial_velocity_min = 300.0
+initial_velocity_max = 500.0
+color = Color(0.9098039, 0.75686276, 0.4392157, 1)
+color_ramp = SubResource("Gradient_g2nae")
+
+[node name="CPUParticles2D3" type="CPUParticles2D" parent="Bucket" unique_id=97638922]
+emitting = false
+amount = 50
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(20, 1)
+direction = Vector2(0, -1)
+spread = 20.0
+initial_velocity_min = 300.0
+initial_velocity_max = 500.0
+color = Color(0.9098039, 0.75686276, 0.4392157, 1)
+color_ramp = SubResource("Gradient_g2nae")
+
+[node name="CPUParticles2D4" type="CPUParticles2D" parent="Bucket" unique_id=1544682438]
+emitting = false
+amount = 50
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(20, 1)
+direction = Vector2(0, -1)
+spread = 20.0
+initial_velocity_min = 300.0
+initial_velocity_max = 500.0
+color = Color(0.9098039, 0.75686276, 0.4392157, 1)
+color_ramp = SubResource("Gradient_g2nae")
+
+[node name="CPUParticles2D5" type="CPUParticles2D" parent="Bucket" unique_id=1999701185]
+emitting = false
+amount = 50
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(20, 1)
+direction = Vector2(0, -1)
+spread = 20.0
+initial_velocity_min = 300.0
+initial_velocity_max = 500.0
+color = Color(0.9098039, 0.75686276, 0.4392157, 1)
+color_ramp = SubResource("Gradient_g2nae")
+
 [node name="Sprite2D" type="Sprite2D" parent="Bucket" unique_id=578511283]
 texture = ExtResource("9_y8s6f")
 
 [node name="Area2D" type="Area2D" parent="Bucket" unique_id=1859500928 node_paths=PackedStringArray("upgradeController", "particles", "sfx_player")]
 script = ExtResource("11_jl3vg")
 upgradeController = NodePath("../../GameController/UpgradeController")
-particles = NodePath("../CPUParticles2D")
+particles = [NodePath("../CPUParticles2D"), NodePath("../CPUParticles2D2"), NodePath("../CPUParticles2D3"), NodePath("../CPUParticles2D4"), NodePath("../CPUParticles2D5")]
 sfx_player = NodePath("../AudioStreamPlayer2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bucket/Area2D" unique_id=1241211686]
@@ -630,11 +813,165 @@ shape = SubResource("RectangleShape2D_t25fw")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Bucket" unique_id=525116]
 stream = SubResource("AudioStreamRandomizer_g2nae")
+max_polyphony = 10
 
-[connection signal="auto_spawn_toggled" from="GameController/UpgradeController/SpawnOnClick" to="GameController/UpgradeController" method="_on_spawn_on_click_auto_spawn_toggled"]
-[connection signal="ball_spawned" from="GameController/UpgradeController/SpawnOnClick" to="GameController/UpgradeController" method="_on_spawn_on_click_ball_spawned"]
-[connection signal="clicked" from="GameController/UpgradeController/SpawnOnClick" to="GameController/UpgradeController" method="_on_spawn_on_click_clicked"]
+[node name="Tutorial" type="CanvasLayer" parent="." unique_id=1671780237]
+
+[node name="HUD" type="Control" parent="Tutorial" unique_id=1867847181]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("15_rjul1")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tutorial/HUD" unique_id=1548799441]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -146.0
+offset_top = -300.0
+offset_right = 146.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ClickToSpawn" type="Label" parent="Tutorial/HUD/VBoxContainer" unique_id=662714504]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "^
+^
+Click in the green area to spawn balls."
+
+[node name="Bucket" type="Label" parent="Tutorial/HUD" unique_id=999268441]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Tutorial/HUD" unique_id=732241144]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -454.0
+offset_top = -250.0
+offset_right = 446.0
+offset_bottom = 148.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tutorial/HUD/HBoxContainer" unique_id=679497916]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 150
+alignment = 1
+
+[node name="BewareMoney" type="Label" parent="Tutorial/HUD/HBoxContainer/VBoxContainer" unique_id=1261150120]
+layout_mode = 2
+text = "Keep an eye on your money. >>
+Spawning balls cost money.
+Random clicks also cost money."
+horizontal_alignment = 2
+
+[node name="Label" type="Label" parent="Tutorial/HUD/HBoxContainer/VBoxContainer" unique_id=1248559912]
+layout_mode = 2
+text = "Spawn has cooldown. >>"
+horizontal_alignment = 2
+
+[node name="LoseUI" type="CanvasLayer" parent="." unique_id=647730584]
+
+[node name="HUD" type="Control" parent="LoseUI" unique_id=630794283]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("16_03yvr")
+
+[node name="ColorRect" type="ColorRect" parent="LoseUI/HUD" unique_id=1169067586]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2500.0
+offset_top = -2500.0
+offset_right = 2500.0
+offset_bottom = 2500.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5019608)
+
+[node name="YouLose" type="Label" parent="LoseUI/HUD" unique_id=1802368733]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -86.0
+offset_top = -11.5
+offset_right = 86.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "You ran out of money!"
+label_settings = SubResource("LabelSettings_rjul1")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Restart" type="Button" parent="LoseUI/HUD" unique_id=1243739829]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.5
+offset_top = 60.0
+offset_right = 32.5
+offset_bottom = 91.00002
+grow_horizontal = 2
+grow_vertical = 2
+text = "Restart"
+script = ExtResource("16_snms7")
+
+[connection signal="auto_spawn_toggled" from="GameController/SpawnOnClick" to="GameController/UpgradeController" method="_on_spawn_on_click_auto_spawn_toggled"]
+[connection signal="ball_spawned" from="GameController/SpawnOnClick" to="GameController/UpgradeController" method="_on_spawn_on_click_ball_spawned"]
+[connection signal="ball_spawned" from="GameController/SpawnOnClick" to="MouseParticles" method="_on_spawn_on_click_ball_spawned"]
+[connection signal="clicked" from="GameController/SpawnOnClick" to="GameController/UpgradeController" method="_on_spawn_on_click_clicked"]
+[connection signal="ran_out_of_money" from="GameController/UpgradeController" to="LoseUI/HUD" method="_on_upgrade_controller_ran_out_of_money"]
 [connection signal="body_entered" from="DespawnArea" to="DespawnArea" method="_on_body_entered"]
-[connection signal="pressed" from="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer/WinRewardBox/WinRewardUpgrade" to="GameController/UpgradeController" method="_on_win_reward_upgrade_pressed"]
-[connection signal="pressed" from="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer/MaxSpawnBox/MaxSpawnUpgrade" to="GameController/UpgradeController" method="_on_max_spawn_upgrade_pressed"]
-[connection signal="toggled" from="CanvasLayer/HUD/MarginContainer/PanelContainer/VBoxContainer/AutoSpawnBox/AutoSpawnToggle" to="GameController/UpgradeController/SpawnOnClick" method="_on_auto_spawn_toggle_toggled"]
+[connection signal="pressed" from="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/WinRewardBox/WinRewardUpgrade" to="GameController/UpgradeController" method="_on_win_reward_upgrade_pressed"]
+[connection signal="pressed" from="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/MaxSpawnBox/MaxSpawnUpgrade" to="GameController/UpgradeController" method="_on_max_spawn_upgrade_pressed"]
+[connection signal="toggled" from="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/AutoSpawnBox/AutoSpawnToggle" to="GameController/SpawnOnClick" method="_on_auto_spawn_toggle_toggled"]
+[connection signal="pressed" from="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/Shake/ShakeButton" to="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/Shake/ShakeButton" method="_on_pressed"]
+[connection signal="shake_screen_signal" from="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/Shake/ShakeButton" to="GameController/UpgradeController" method="_on_shake_button_shake_screen_signal"]
+[connection signal="pressed" from="LoseUI/HUD/Restart" to="LoseUI/HUD/Restart" method="_on_pressed"]

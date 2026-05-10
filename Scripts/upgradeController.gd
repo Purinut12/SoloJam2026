@@ -6,10 +6,13 @@ extends Node
 @export var winRewardUpgradeButton: Button
 @export var maxSpawnLabel: Label
 @export var maxSpawnUpgradeButton: Button
+@export var shakeLabel: Label
 
 # These define how much the stats improve per upgrade
 const COOLDOWN_INCREMENT = 0.5
 const MONEY_INCREMENT = 50
+
+signal ran_out_of_money()
 
 func _ready():
 	update_ui()
@@ -40,7 +43,12 @@ func add_money(amount):
 	stats.money += amount
 	if stats.money < 0:
 		stats.money = 0
+		emit_signal("ran_out_of_money")
 	update_money_label()
+
+func get_shake_cost() -> int:
+	return 0
+	return stats.win_reward_upgrade_cost + stats.spawn_rate_upgrade_cost
 
 func update_ui():
 	update_money_label()
@@ -48,6 +56,7 @@ func update_ui():
 	update_win_reward_upgrade_label()
 	update_max_spawn_label()
 	update_max_spawn_upgrade_label()
+	update_shake_label()
 	
 func update_money_label():
 	moneyLabel.text = "Money: " + str(stats.money)
@@ -63,6 +72,9 @@ func update_max_spawn_label():
 
 func update_max_spawn_upgrade_label():
 	maxSpawnUpgradeButton.text = "Upgrade (cost: " + str(stats.spawn_rate_upgrade_cost) + ")"
+
+func update_shake_label():
+	shakeLabel.text = "cost: " + str(get_shake_cost())
 
 
 func _on_spawn_on_click_ball_spawned() -> void:
@@ -80,3 +92,7 @@ func _on_win_reward_upgrade_pressed() -> void:
 
 func _on_max_spawn_upgrade_pressed() -> void:
 	upgrade_spawn_speed()
+
+
+func _on_shake_button_shake_screen_signal() -> void:
+	add_money(-get_shake_cost())
