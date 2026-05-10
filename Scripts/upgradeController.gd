@@ -153,6 +153,7 @@ func _on_shake_button_shake_screen_signal() -> void:
 func format_number_with_commas(number: Variant) -> String:
 	var val_float = float(number)
 	var is_negative = val_float < 0
+	
 	var full_str = str(abs(val_float))
 	
 	var parts = full_str.split(".")
@@ -168,7 +169,7 @@ func format_number_with_commas(number: Variant) -> String:
 			formatted_int = "," + formatted_int
 			
 	var result = formatted_int
-	if dec_part != "":
+	if dec_part != "" and dec_part != "0":
 		result += "." + dec_part
 		
 	if is_negative:
