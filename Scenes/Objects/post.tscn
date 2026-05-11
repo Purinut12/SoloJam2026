@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://k6qatse244j8"]
+
+[ext_resource type="Texture2D" uid="uid://24nja0lbgm2j" path="res://Sprites/Post.png" id="1_rwaxn"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8mtfu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bkcmx"]
+
+[node name="Post" type="RigidBody2D" unique_id=324772121]
+physics_material_override = SubResource("PhysicsMaterial_8mtfu")
+gravity_scale = 0.0
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=673712260]
+scale = Vector2(0.75, 0.75)
+shape = SubResource("CircleShape2D_bkcmx")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1164603434]
+texture = ExtResource("1_rwaxn")

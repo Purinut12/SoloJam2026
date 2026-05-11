@@ -3,3 +3,11 @@ http://www.zapsplat.com/
 
 Background img
 https://craftpix.net
+
+cost click
+ui right
+cooldown graphic
+fix non whole number
+fix polysound
+add tween for ball spawn
+make text blink

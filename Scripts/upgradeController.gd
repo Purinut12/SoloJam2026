@@ -11,6 +11,7 @@ extends Node
 @export var bucketLabel: Label
 @export var autoSpawnNumberUpgradeButton: Button
 @export var autoSpawnNumberLabel: Label
+@export var autoSpawnToggle: Button
 
 # These define how much the stats improve per upgrade
 const COOLDOWN_INCREMENT = 0.1
@@ -81,6 +82,7 @@ func check_disable_upgrades():
 	maxSpawnUpgradeButton.disabled = stats.money < stats.spawn_rate_upgrade_cost
 	bucketUpgradeButton.disabled = stats.money < stats.bucket_upgrade_cost
 	autoSpawnNumberUpgradeButton.disabled = stats.money < stats.auto_spawn_upgrade_cost
+	autoSpawnToggle.disabled = stats.money < stats.toggle_cost
 	shakeButton.disabled = stats.money < get_shake_cost()
 
 func get_shake_cost() -> int:
@@ -128,18 +130,14 @@ func update_auto_spawn_number_upgrade_label():
 func update_shake_label():
 	shakeButton.text = "Shake (" + format_number_with_commas(get_shake_cost()) + ")"
 
-func _on_spawn_on_click_ball_spawned() -> void:
-	add_money(-stats.spawn_cost)
-
-func _on_auto_spawner_ball_spawned() -> void:
-	add_money(-stats.spawn_cost)
-
 func _on_spawn_on_click_clicked() -> void:
 	add_money(-stats.click_cost)
 
 func _on_spawn_on_click_auto_spawn_toggled() -> void:
 	add_money(-stats.toggle_cost)
 
+func _on_spawn_controller_ball_spawned() -> void:
+	add_money(-stats.spawn_cost)
 
 func _on_win_reward_upgrade_pressed() -> void:
 	upgrade_win_reward()
@@ -158,9 +156,9 @@ func _on_shake_button_shake_screen_signal() -> void:
 
 
 func format_number_with_commas(number: Variant) -> String:
-	var val_float = float(number)
-	var is_negative = val_float < 0
+	var val_float = snappedf(float(number), 0.01) 
 	
+	var is_negative = val_float < 0
 	var full_str = str(abs(val_float))
 	
 	var parts = full_str.split(".")
@@ -176,7 +174,8 @@ func format_number_with_commas(number: Variant) -> String:
 			formatted_int = "," + formatted_int
 			
 	var result = formatted_int
-	if dec_part != "" and dec_part != "0":
+	
+	if dec_part != "" and dec_part.to_int() > 0:
 		result += "." + dec_part
 		
 	if is_negative:

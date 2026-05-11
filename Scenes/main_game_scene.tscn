@@ -1,9 +1,9 @@
 [gd_scene format=4 uid="uid://b04eq2wqdxilc"]
 
-[ext_resource type="PackedScene" uid="uid://bai67cxuy1fcy" path="res://Prefabs/Objects/ball.tscn" id="1_wb2by"]
-[ext_resource type="PackedScene" uid="uid://k6qatse244j8" path="res://Prefabs/Objects/post.tscn" id="2_8mtfu"]
+[ext_resource type="PackedScene" uid="uid://bai67cxuy1fcy" path="res://Scenes/Objects/ball.tscn" id="1_wb2by"]
+[ext_resource type="PackedScene" uid="uid://k6qatse244j8" path="res://Scenes/Objects/post.tscn" id="2_8mtfu"]
 [ext_resource type="Texture2D" uid="uid://dnnh3hou1ps2d" path="res://Sprites/Wall.png" id="2_hkk18"]
-[ext_resource type="PackedScene" uid="uid://crbam5fwtbxga" path="res://Prefabs/Objects/post_with_pendulum.tscn" id="2_y8s6f"]
+[ext_resource type="PackedScene" uid="uid://crbam5fwtbxga" path="res://Scenes/Objects/post_with_pendulum.tscn" id="2_y8s6f"]
 [ext_resource type="Script" uid="uid://37pcgess2fgo" path="res://Scripts/spawn_on_click.gd" id="3_wb2by"]
 [ext_resource type="Script" uid="uid://bh61662te7wxb" path="res://Scripts/destory_on_enter.gd" id="4_syfkn"]
 [ext_resource type="Script" uid="uid://bg51x6bpi4hc" path="res://Scripts/stats.gd" id="4_t40n3"]
@@ -14,13 +14,25 @@
 [ext_resource type="Script" uid="uid://bsl1fxl1fs757" path="res://Scripts/auto_spawner.gd" id="11_aq4al"]
 [ext_resource type="Texture2D" uid="uid://bfd51xffhueg1" path="res://Sprites/bg.png" id="11_vlxgi"]
 [ext_resource type="Script" uid="uid://ckagwcu3wgtcg" path="res://Scripts/shake.gd" id="11_wgi8v"]
-[ext_resource type="PackedScene" uid="uid://bibkt34bsxxwp" path="res://Prefabs/Objects/bucket.tscn" id="14_03yvr"]
+[ext_resource type="Script" uid="uid://kfkkqhnyf76n" path="res://Scripts/spawn_controller.gd" id="12_phc0x"]
+[ext_resource type="PackedScene" uid="uid://bibkt34bsxxwp" path="res://Scenes/Objects/bucket.tscn" id="14_03yvr"]
 [ext_resource type="Texture2D" uid="uid://ck3kic45yq375" path="res://Sprites/bg night.png" id="15_1achy"]
 [ext_resource type="Script" uid="uid://df1tufu05jy8a" path="res://Scripts/fade_out_after_click.gd" id="15_rjul1"]
 [ext_resource type="Script" uid="uid://6hnv1b3gx7q5" path="res://Scripts/restart_ui.gd" id="16_03yvr"]
 [ext_resource type="Script" uid="uid://dtp58i3amxfii" path="res://Scripts/restart_scene.gd" id="16_snms7"]
 [ext_resource type="Script" uid="uid://cw86m6g1mv5xo" path="res://Scripts/fade_sprite.gd" id="16_vlxgi"]
 [ext_resource type="Script" uid="uid://dukpe2m5aslci" path="res://Scripts/sound_slider.gd" id="18_aq4al"]
+[ext_resource type="Script" uid="uid://cpjl7i65v5sqx" path="res://Scripts/button_shrink.gd" id="18_lvomj"]
+[ext_resource type="PackedScene" uid="uid://b0prkdml4uwr5" path="res://Scenes/Objects/button_particles.tscn" id="19_kjjcr"]
+[ext_resource type="Script" uid="uid://g8265k6qoh4i" path="res://Scripts/blink_text.gd" id="22_j73k1"]
+[ext_resource type="Script" uid="uid://dvpwsl1f3juum" path="res://Scripts/cursor_cooldown.gd" id="22_mygrg"]
+[ext_resource type="AudioStream" uid="uid://dv1uyix65owek" path="res://Audio/SFX/coins 1.mp3" id="26_0086k"]
+[ext_resource type="AudioStream" uid="uid://btbqnqf5nj8ym" path="res://Audio/SFX/Upgrade Sound.mp3" id="27_ej5uf"]
+[ext_resource type="Script" uid="uid://t68fugu70alq" path="res://Scripts/play_buy_coin_sound.gd" id="27_pnu80"]
+[ext_resource type="AudioStream" uid="uid://cntmydketwe21" path="res://Audio/SFX/wood thud 1.mp3" id="28_djblc"]
+[ext_resource type="AudioStream" uid="uid://drx2jgt8cqsyl" path="res://Audio/SFX/wood thud 2.mp3" id="29_fs50o"]
+[ext_resource type="AudioStream" uid="uid://dble0ijhjyj4f" path="res://Audio/SFX/wood thud 3.mp3" id="30_pnu80"]
+[ext_resource type="Script" uid="uid://bff0cp6aedo57" path="res://Scripts/play_sound.gd" id="31_fs50o"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t25fw"]
 texture = ExtResource("2_hkk18")
@@ -71,14 +83,45 @@ content_margin_left = 10.0
 content_margin_top = 10.0
 content_margin_right = 10.0
 content_margin_bottom = 10.0
+bg_color = Color(0.30980393, 0.56078434, 0.7294118, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
+border_color = Color(0.14509805, 0.22745098, 0.36862746, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_2f4cu"]
 font_size = 24
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_mygrg"]
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_phc0x"]
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_lvomj"]
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_kjjcr"]
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0086k"]
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ej5uf"]
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_vp1cg"]
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_wgi8v"]
 outline_size = 10
@@ -98,6 +141,12 @@ outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_rjul1"]
 font_size = 32
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_j73k1"]
+streams_count = 3
+stream_0/stream = ExtResource("28_djblc")
+stream_1/stream = ExtResource("29_fs50o")
+stream_2/stream = ExtResource("30_pnu80")
 
 [node name="MainGameScenes" type="Node2D" unique_id=2006252894]
 
@@ -501,7 +550,7 @@ Ball = ExtResource("1_wb2by")
 stats = NodePath("../Stats")
 valid_area = NodePath("../../SpawnArea")
 
-[node name="UpgradeController" type="Node2D" parent="GameController" unique_id=1075821509 node_paths=PackedStringArray("stats", "moneyLabel", "winRewardLabel", "winRewardUpgradeButton", "maxSpawnLabel", "maxSpawnUpgradeButton", "shakeButton", "bucketUpgradeButton", "bucketLabel", "autoSpawnNumberUpgradeButton", "autoSpawnNumberLabel") groups=["upgrade_controller"]]
+[node name="UpgradeController" type="Node2D" parent="GameController" unique_id=1075821509 node_paths=PackedStringArray("stats", "moneyLabel", "winRewardLabel", "winRewardUpgradeButton", "maxSpawnLabel", "maxSpawnUpgradeButton", "shakeButton", "bucketUpgradeButton", "bucketLabel", "autoSpawnNumberUpgradeButton", "autoSpawnNumberLabel", "autoSpawnToggle") groups=["upgrade_controller"]]
 script = ExtResource("5_udhrh")
 stats = NodePath("../Stats")
 moneyLabel = NodePath("../../MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/Money")
@@ -514,11 +563,7 @@ bucketUpgradeButton = NodePath("../../MainUI/HUD/MarginContainer/PanelContainer/
 bucketLabel = NodePath("../../MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/BucketBox/BucketText")
 autoSpawnNumberUpgradeButton = NodePath("../../MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/AutoSpawnBox2/AutoSpawnButton")
 autoSpawnNumberLabel = NodePath("../../MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/AutoSpawnBox2/AutoSpawnText")
-
-[node name="Music" type="AudioStreamPlayer2D" parent="GameController" unique_id=1422728800]
-stream = ExtResource("8_dn7sn")
-autoplay = true
-bus = &"Music"
+autoSpawnToggle = NodePath("../../MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/AutoSpawnBox/AutoSpawnToggle")
 
 [node name="BucketManager" type="Node2D" parent="GameController" unique_id=1654256533]
 script = ExtResource("9_wgi8v")
@@ -531,6 +576,9 @@ position = Vector2(0, 350)
 script = ExtResource("11_aq4al")
 Ball = ExtResource("1_wb2by")
 spawn_area = NodePath("../../SpawnArea")
+
+[node name="SpawnController" type="Node2D" parent="GameController" unique_id=613869603]
+script = ExtResource("12_phc0x")
 
 [node name="SpawnArea" type="Area2D" parent="." unique_id=1332385132]
 position = Vector2(0, -320)
@@ -589,11 +637,12 @@ grow_vertical = 2
 theme_override_constants/margin_right = 20
 
 [node name="PanelContainer" type="PanelContainer" parent="MainUI/HUD/MarginContainer" unique_id=1210407635]
-custom_minimum_size = Vector2(200, 500)
+custom_minimum_size = Vector2(250, 500)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_syfkn")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainUI/HUD/MarginContainer/PanelContainer" unique_id=1671525103]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_constants/separation = 30
 
@@ -608,12 +657,13 @@ label_settings = SubResource("LabelSettings_2f4cu")
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Money: 0"
+label_settings = SubResource("LabelSettings_mygrg")
 
 [node name="CostPer" type="Label" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=1072554138]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Cost per ball: 1
-Cost per click (anywhere): 1"
+text = "Cost per ball: 1"
+label_settings = SubResource("LabelSettings_phc0x")
 horizontal_alignment = 1
 
 [node name="WinRewardBox" type="VBoxContainer" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=1617422702]
@@ -625,10 +675,18 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 text = "Money per Win: 5"
+label_settings = SubResource("LabelSettings_lvomj")
 
-[node name="WinRewardUpgrade" type="Button" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/WinRewardBox" unique_id=1315654274]
+[node name="WinRewardUpgrade" type="Button" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/WinRewardBox" unique_id=1315654274 node_paths=PackedStringArray("sfx_player", "click_particles")]
 layout_mode = 2
+tooltip_text = "+50 Money per Win"
 text = "Upgrade (50)"
+script = ExtResource("18_lvomj")
+sfx_player = [NodePath("../../../../../../../Audio/BuyCoin"), NodePath("../../../../../../../Audio/BuyUpgrade")]
+click_particles = NodePath("ButtonParticles")
+
+[node name="ButtonParticles" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/WinRewardBox/WinRewardUpgrade" unique_id=2013656796 instance=ExtResource("19_kjjcr")]
+position = Vector2(100, 15)
 
 [node name="MaxSpawnBox" type="VBoxContainer" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=1539319555]
 layout_mode = 2
@@ -639,10 +697,18 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 text = "Max spawn: 0/sec"
+label_settings = SubResource("LabelSettings_kjjcr")
 
-[node name="MaxSpawnUpgrade" type="Button" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/MaxSpawnBox" unique_id=971340708]
+[node name="MaxSpawnUpgrade" type="Button" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/MaxSpawnBox" unique_id=971340708 node_paths=PackedStringArray("sfx_player", "click_particles")]
 layout_mode = 2
+tooltip_text = "+0.1 Ball/sec"
 text = "Upgrade (50)"
+script = ExtResource("18_lvomj")
+sfx_player = [NodePath("../../../../../../../Audio/BuyCoin"), NodePath("../../../../../../../Audio/BuyUpgrade")]
+click_particles = NodePath("ButtonParticles")
+
+[node name="ButtonParticles" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/MaxSpawnBox/MaxSpawnUpgrade" unique_id=1861269910 instance=ExtResource("19_kjjcr")]
+position = Vector2(100, 15)
 
 [node name="BucketBox" type="VBoxContainer" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=387832483]
 layout_mode = 2
@@ -653,10 +719,18 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 text = "Bucket: 1"
+label_settings = SubResource("LabelSettings_0086k")
 
-[node name="BucketUpgrade" type="Button" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/BucketBox" unique_id=230505988]
+[node name="BucketUpgrade" type="Button" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/BucketBox" unique_id=230505988 node_paths=PackedStringArray("sfx_player", "click_particles")]
 layout_mode = 2
+tooltip_text = "+1 Bucket"
 text = "Upgrade (10000)"
+script = ExtResource("18_lvomj")
+sfx_player = [NodePath("../../../../../../../Audio/BuyCoin"), NodePath("../../../../../../../Audio/BuyUpgrade")]
+click_particles = NodePath("ButtonParticles")
+
+[node name="ButtonParticles" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/BucketBox/BucketUpgrade" unique_id=1797267243 instance=ExtResource("19_kjjcr")]
+position = Vector2(100, 15)
 
 [node name="AutoSpawnBox2" type="VBoxContainer" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=1571085124]
 layout_mode = 2
@@ -664,20 +738,34 @@ layout_mode = 2
 [node name="AutoSpawnText" type="Label" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/AutoSpawnBox2" unique_id=626347679]
 layout_mode = 2
 text = "Auto Spawner: 0"
+label_settings = SubResource("LabelSettings_ej5uf")
 horizontal_alignment = 1
 
-[node name="AutoSpawnButton" type="Button" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/AutoSpawnBox2" unique_id=1019624382]
+[node name="AutoSpawnButton" type="Button" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/AutoSpawnBox2" unique_id=1019624382 node_paths=PackedStringArray("sfx_player", "click_particles")]
 layout_mode = 2
+tooltip_text = "+1 Spawner"
 text = "Upgrade (10000)"
+script = ExtResource("18_lvomj")
+sfx_player = [NodePath("../../../../../../../Audio/BuyCoin"), NodePath("../../../../../../../Audio/BuyUpgrade")]
+click_particles = NodePath("ButtonParticles")
+
+[node name="ButtonParticles" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/AutoSpawnBox2/AutoSpawnButton" unique_id=990603534 instance=ExtResource("19_kjjcr")]
+position = Vector2(100, 15)
 
 [node name="Shake" type="VBoxContainer" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=405811897]
 layout_mode = 2
 
-[node name="ShakeButton" type="Button" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/Shake" unique_id=1436543945 node_paths=PackedStringArray("camera")]
+[node name="ShakeButton" type="Button" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/Shake" unique_id=1436543945 node_paths=PackedStringArray("camera", "sfx_player", "click_particles")]
 layout_mode = 2
+tooltip_text = "Shake the whole sceen and bump balls that are stuck."
 text = "Shake (100)"
 script = ExtResource("11_wgi8v")
 camera = NodePath("../../../../../../../Camera2D")
+sfx_player = [NodePath("../../../../../../../Audio/BuyCoin")]
+click_particles = NodePath("ButtonParticles")
+
+[node name="ButtonParticles" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/Shake/ShakeButton" unique_id=131801544 instance=ExtResource("19_kjjcr")]
+position = Vector2(100, 15)
 
 [node name="AutoSpawnBox" type="VBoxContainer" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=405981519]
 layout_mode = 2
@@ -689,6 +777,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 text = "Auto Spawn At Cursor
 (500)"
+label_settings = SubResource("LabelSettings_vp1cg")
 horizontal_alignment = 1
 
 [node name="AutoSpawnToggle" type="CheckButton" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/AutoSpawnBox" unique_id=1959501033]
@@ -784,6 +873,9 @@ text = "^
 ^
 Click in the green area to spawn balls."
 label_settings = SubResource("LabelSettings_wgi8v")
+script = ExtResource("22_j73k1")
+blink_color = Color(0.53333336, 0.29411766, 0.16862746, 1)
+duration = 1.0
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Tutorial/HUD" unique_id=1589790605]
 layout_mode = 1
@@ -804,6 +896,9 @@ alignment = 2
 layout_mode = 2
 text = "Drop your balls into bucket to receive money!"
 label_settings = SubResource("LabelSettings_aq4al")
+script = ExtResource("22_j73k1")
+blink_color = Color(0.53333336, 0.29411766, 0.16862746, 1)
+duration = 1.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Tutorial/HUD" unique_id=732241144]
 layout_mode = 1
@@ -813,9 +908,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -454.0
-offset_top = -360.0
+offset_top = -365.0
 offset_right = 446.0
-offset_bottom = 38.0
+offset_bottom = 33.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 2
@@ -824,7 +919,7 @@ alignment = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/separation = 150
+theme_override_constants/separation = 125
 alignment = 1
 
 [node name="BewareMoney" type="Label" parent="Tutorial/HUD/HBoxContainer/VBoxContainer" unique_id=1261150120]
@@ -834,12 +929,18 @@ Spawning balls cost money.
 Random clicks also cost money."
 label_settings = SubResource("LabelSettings_1achy")
 horizontal_alignment = 2
+script = ExtResource("22_j73k1")
+blink_color = Color(0.53333336, 0.29411766, 0.16862746, 1)
+duration = 1.0
 
-[node name="Label" type="Label" parent="Tutorial/HUD/HBoxContainer/VBoxContainer" unique_id=1248559912]
+[node name="SpawnHasCooldown" type="Label" parent="Tutorial/HUD/HBoxContainer/VBoxContainer" unique_id=1248559912]
 layout_mode = 2
 text = "Spawn has cooldown. >>"
 label_settings = SubResource("LabelSettings_vlxgi")
 horizontal_alignment = 2
+script = ExtResource("22_j73k1")
+blink_color = Color(0.53333336, 0.29411766, 0.16862746, 1)
+duration = 1.0
 
 [node name="LoseUI" type="CanvasLayer" parent="." unique_id=647730584]
 
@@ -909,14 +1010,56 @@ grow_vertical = 2
 text = "Restart"
 script = ExtResource("16_snms7")
 
+[node name="CursorCooldown" type="Node2D" parent="." unique_id=1291049113]
+script = ExtResource("22_mygrg")
+
+[node name="Timer" type="Timer" parent="CursorCooldown" unique_id=564999345]
+wait_time = 2.0
+one_shot = true
+
+[node name="Audio" type="Node2D" parent="." unique_id=483240225]
+
+[node name="Music" type="AudioStreamPlayer2D" parent="Audio" unique_id=1422728800]
+stream = ExtResource("8_dn7sn")
+autoplay = true
+bus = &"Music"
+
+[node name="BuyCoin" type="AudioStreamPlayer2D" parent="Audio" unique_id=693057364]
+stream = ExtResource("26_0086k")
+volume_db = -8.0
+max_polyphony = 4
+bus = &"SFX"
+
+[node name="ReceiveCoin" type="AudioStreamPlayer2D" parent="Audio" unique_id=528469890]
+stream = ExtResource("26_0086k")
+max_polyphony = 4
+bus = &"SFX"
+script = ExtResource("27_pnu80")
+
+[node name="BuyUpgrade" type="AudioStreamPlayer2D" parent="Audio" unique_id=68143515]
+stream = ExtResource("27_ej5uf")
+volume_db = 8.0
+max_polyphony = 4
+
+[node name="BallSound" type="AudioStreamPlayer2D" parent="Audio" unique_id=2053207006]
+stream = SubResource("AudioStreamRandomizer_j73k1")
+max_polyphony = 4
+bus = &"SFX"
+script = ExtResource("31_fs50o")
+
 [connection signal="auto_spawn_toggled" from="GameController/SpawnOnClick" to="GameController/UpgradeController" method="_on_spawn_on_click_auto_spawn_toggled"]
-[connection signal="ball_spawned" from="GameController/SpawnOnClick" to="GameController/UpgradeController" method="_on_spawn_on_click_ball_spawned"]
+[connection signal="ball_spawned" from="GameController/SpawnOnClick" to="GameController/SpawnController" method="_on_spawn_on_click_ball_spawned"]
+[connection signal="ball_spawned" from="GameController/SpawnOnClick" to="CursorCooldown" method="_on_spawn_on_click_ball_spawned"]
 [connection signal="clicked" from="GameController/SpawnOnClick" to="GameController/UpgradeController" method="_on_spawn_on_click_clicked"]
 [connection signal="bucket_upgraded" from="GameController/UpgradeController" to="GameController/BucketManager" method="_on_upgrade_controller_bucket_upgraded"]
 [connection signal="ran_out_of_money" from="GameController/UpgradeController" to="LoseUI/HUD" method="_on_upgrade_controller_ran_out_of_money"]
 [connection signal="spawn_rate_upgraded" from="GameController/UpgradeController" to="GameController/SpawnOnClick" method="_on_upgrade_controller_spawn_rate_upgraded"]
 [connection signal="spawn_rate_upgraded" from="GameController/UpgradeController" to="GameController/AutoSpawner" method="_on_upgrade_controller_spawn_rate_upgraded"]
-[connection signal="ball_spawned" from="GameController/AutoSpawner" to="GameController/UpgradeController" method="_on_auto_spawner_ball_spawned"]
+[connection signal="spawn_rate_upgraded" from="GameController/UpgradeController" to="CursorCooldown" method="_on_upgrade_controller_spawn_rate_upgraded"]
+[connection signal="ball_spawned" from="GameController/AutoSpawner" to="GameController/SpawnController" method="_on_auto_spawner_ball_spawned"]
+[connection signal="ball_spawned" from="GameController/SpawnController" to="GameController/UpgradeController" method="_on_spawn_controller_ball_spawned"]
+[connection signal="ball_spawned" from="GameController/SpawnController" to="CursorCooldown" method="_on_spawn_controller_ball_spawned"]
+[connection signal="ball_spawned" from="GameController/SpawnController" to="Audio/BallSound" method="_on_spawn_controller_ball_spawned"]
 [connection signal="body_entered" from="DespawnArea" to="DespawnArea" method="_on_body_entered"]
 [connection signal="pressed" from="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/WinRewardBox/WinRewardUpgrade" to="GameController/UpgradeController" method="_on_win_reward_upgrade_pressed"]
 [connection signal="pressed" from="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer/MaxSpawnBox/MaxSpawnUpgrade" to="GameController/UpgradeController" method="_on_max_spawn_upgrade_pressed"]

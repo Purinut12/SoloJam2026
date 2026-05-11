@@ -1,4 +1,4 @@
-extends Node
+extends "res://Scripts/button_shrink.gd"
 
 @export var push_force: float = 500.0
 @export var shake_intensity: float = 10.0

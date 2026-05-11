@@ -2,7 +2,6 @@ extends Area2D
 
 @export var upgradeController: Node
 @export var particles: Array[CPUParticles2D] = []
-@export var sfx_player: AudioStreamPlayer2D
 
 func _ready():
 	upgradeController = get_tree().get_first_node_in_group("upgrade_controller")
@@ -16,6 +15,5 @@ func _on_body_entered(body: Node2D):
 			if not particle.emitting:
 				particle.emitting = true
 				break
-		if sfx_player:
-			sfx_player.play()
+		SignalBus.play_receive_coin.emit()
 		body.queue_free() 
