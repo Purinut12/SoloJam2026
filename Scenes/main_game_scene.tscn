@@ -32,6 +32,9 @@
 [ext_resource type="AudioStream" uid="uid://cntmydketwe21" path="res://Audio/SFX/wood thud 1.mp3" id="28_djblc"]
 [ext_resource type="AudioStream" uid="uid://drx2jgt8cqsyl" path="res://Audio/SFX/wood thud 2.mp3" id="29_fs50o"]
 [ext_resource type="AudioStream" uid="uid://dble0ijhjyj4f" path="res://Audio/SFX/wood thud 3.mp3" id="30_pnu80"]
+[ext_resource type="AudioStream" uid="uid://bv1jy2kvpi7o3" path="res://Audio/SFX/ball hit 1.mp3" id="30_w6h1e"]
+[ext_resource type="Script" uid="uid://kyhkn8ikcnmy" path="res://Scripts/play_collide_sound.gd" id="30_x366o"]
+[ext_resource type="AudioStream" uid="uid://dgr8d0kn50rn7" path="res://Audio/SFX/ball hit 2.mp3" id="31_0calb"]
 [ext_resource type="Script" uid="uid://bff0cp6aedo57" path="res://Scripts/play_sound.gd" id="31_fs50o"]
 [ext_resource type="Script" uid="uid://dwtw5dwojg8ts" path="res://Scripts/fade_out_screen.gd" id="34_cjidg"]
 
@@ -100,10 +103,6 @@ outline_color = Color(0, 0, 0, 1)
 outline_size = 10
 outline_color = Color(0, 0, 0, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_phc0x"]
-outline_size = 10
-outline_color = Color(0, 0, 0, 1)
-
 [sub_resource type="LabelSettings" id="LabelSettings_lvomj"]
 outline_size = 10
 outline_color = Color(0, 0, 0, 1)
@@ -144,6 +143,11 @@ outline_color = Color(0, 0, 0, 1)
 font_size = 32
 outline_size = 10
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_kndgm"]
+streams_count = 2
+stream_0/stream = ExtResource("30_w6h1e")
+stream_1/stream = ExtResource("31_0calb")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_j73k1"]
 streams_count = 3
@@ -670,13 +674,6 @@ size_flags_horizontal = 4
 text = "Money: 0"
 label_settings = SubResource("LabelSettings_mygrg")
 
-[node name="CostPer" type="Label" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=1072554138]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Cost per ball: 1"
-label_settings = SubResource("LabelSettings_phc0x")
-horizontal_alignment = 1
-
 [node name="WinRewardBox" type="VBoxContainer" parent="MainUI/HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=1617422702]
 layout_mode = 2
 theme_override_constants/separation = 10
@@ -930,7 +927,7 @@ alignment = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/separation = 125
+theme_override_constants/separation = 72
 alignment = 1
 
 [node name="BewareMoney" type="Label" parent="Tutorial/HUD/HBoxContainer/VBoxContainer" unique_id=1261150120]
@@ -1051,6 +1048,14 @@ script = ExtResource("27_pnu80")
 stream = ExtResource("27_ej5uf")
 volume_db = 8.0
 max_polyphony = 4
+bus = &"SFX"
+
+[node name="BallCollide" type="AudioStreamPlayer2D" parent="Audio" unique_id=350012960]
+stream = SubResource("AudioStreamRandomizer_kndgm")
+volume_db = -20.0
+max_polyphony = 4
+bus = &"SFX"
+script = ExtResource("30_x366o")
 
 [node name="BallSound" type="AudioStreamPlayer2D" parent="Audio" unique_id=2053207006]
 stream = SubResource("AudioStreamRandomizer_j73k1")

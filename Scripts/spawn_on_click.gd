@@ -38,7 +38,6 @@ func try_spawn(spawn_pos: Vector2):
 	var instance = Ball.instantiate()
 	instance.position = spawn_pos
 	add_child(instance)
-	instance.add_to_group("ball")
 	ball_spawned.emit()
 
 func is_point_in_valid_area(pos: Vector2) -> bool:

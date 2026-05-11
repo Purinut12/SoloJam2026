@@ -6,12 +6,14 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bkcmx"]
 
-[node name="Post" type="RigidBody2D" unique_id=324772121]
+[node name="Post" type="RigidBody2D" unique_id=324772121 groups=["post"]]
 physics_material_override = SubResource("PhysicsMaterial_8mtfu")
 gravity_scale = 0.0
 freeze = true
+contact_monitor = true
+max_contacts_reported = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=673712260]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=673712260 groups=["post"]]
 scale = Vector2(0.75, 0.75)
 shape = SubResource("CircleShape2D_bkcmx")
 

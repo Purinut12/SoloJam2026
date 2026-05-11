@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://bai67cxuy1fcy"]
 
+[ext_resource type="Script" uid="uid://dqag33wslo8si" path="res://Scripts/signal_collide_sound.gd" id="1_j8djf"]
 [ext_resource type="Texture2D" uid="uid://d4jf0uxmpw0m" path="res://Sprites/Ball.png" id="1_jess7"]
 [ext_resource type="Script" uid="uid://deh210y5fl6ur" path="res://Scripts/enlarge_to_existence.gd" id="2_41bqp"]
 [ext_resource type="Script" uid="uid://c8polh5ceak2c" path="res://Scripts/auto_play_particle.gd" id="5_d5tqw"]
@@ -11,8 +12,12 @@
 [sub_resource type="Gradient" id="Gradient_n8x01"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[node name="Ball" type="RigidBody2D" unique_id=707892521]
+[sub_resource type="CircleShape2D" id="CircleShape2D_j8djf"]
+
+[node name="Ball" type="RigidBody2D" unique_id=707892521 groups=["ball"]]
 physics_material_override = SubResource("PhysicsMaterial_bkcmx")
+contact_monitor = true
+max_contacts_reported = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1209126342]
 scale = Vector2(0.75, 0.75)
@@ -40,3 +45,12 @@ scale_amount_max = 2.0
 color = Color(0.92156863, 0.92941177, 0.9137255, 1)
 color_ramp = SubResource("Gradient_n8x01")
 script = ExtResource("5_d5tqw")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1156993560]
+script = ExtResource("1_j8djf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2140767294]
+scale = Vector2(0.85, 0.85)
+shape = SubResource("CircleShape2D_j8djf")
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]

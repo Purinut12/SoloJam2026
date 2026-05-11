@@ -11,7 +11,7 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nhk7p"]
 
-[node name="PostWithPendulum" type="RigidBody2D" unique_id=324772121]
+[node name="PostWithPendulum" type="RigidBody2D" unique_id=324772121 groups=["post"]]
 physics_material_override = SubResource("PhysicsMaterial_8mtfu")
 gravity_scale = 0.0
 freeze = true
@@ -34,7 +34,7 @@ texture = ExtResource("1_wiv6a")
 node_a = NodePath("..")
 node_b = NodePath("../Ball")
 
-[node name="Ball" type="RigidBody2D" parent="." unique_id=1922856412]
+[node name="Ball" type="RigidBody2D" parent="." unique_id=1922856412 groups=["post"]]
 position = Vector2(50, 50)
 mass = 10.0
 script = ExtResource("1_2a6mp")

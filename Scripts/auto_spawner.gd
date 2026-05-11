@@ -34,7 +34,6 @@ func spawn_wave():
 		var instance = Ball.instantiate()
 		instance.position = Vector2(spawn_x, shape_node.global_position.y)
 		add_child(instance)
-		instance.add_to_group("ball")
 		ball_spawned.emit()
 
 func _on_upgrade_controller_spawn_rate_upgraded(rate: float, _level: int) -> void:
