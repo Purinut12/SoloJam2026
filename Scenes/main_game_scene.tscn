@@ -33,6 +33,7 @@
 [ext_resource type="AudioStream" uid="uid://drx2jgt8cqsyl" path="res://Audio/SFX/wood thud 2.mp3" id="29_fs50o"]
 [ext_resource type="AudioStream" uid="uid://dble0ijhjyj4f" path="res://Audio/SFX/wood thud 3.mp3" id="30_pnu80"]
 [ext_resource type="Script" uid="uid://bff0cp6aedo57" path="res://Scripts/play_sound.gd" id="31_fs50o"]
+[ext_resource type="Script" uid="uid://dwtw5dwojg8ts" path="res://Scripts/fade_out_screen.gd" id="34_cjidg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t25fw"]
 texture = ExtResource("2_hkk18")
@@ -1048,6 +1049,30 @@ stream = SubResource("AudioStreamRandomizer_j73k1")
 max_polyphony = 4
 bus = &"SFX"
 script = ExtResource("31_fs50o")
+
+[node name="BlackScreen" type="CanvasLayer" parent="." unique_id=1155922638]
+
+[node name="Control" type="Control" parent="BlackScreen" unique_id=666285422]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("34_cjidg")
+
+[node name="ColorRect" type="ColorRect" parent="BlackScreen/Control" unique_id=1638490600]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2500.0
+offset_top = -2500.0
+offset_right = 2500.0
+offset_bottom = 2500.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
 
 [connection signal="auto_spawn_toggled" from="GameController/SpawnOnClick" to="GameController/UpgradeController" method="_on_spawn_on_click_auto_spawn_toggled"]
 [connection signal="ball_spawned" from="GameController/SpawnOnClick" to="GameController/SpawnController" method="_on_spawn_on_click_ball_spawned"]
