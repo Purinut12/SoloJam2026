@@ -1,7 +1,7 @@
 extends Node
 class_name GameStats
 
-@export var money: int = 100
+@export var money: int = 999999
 @export var spawn_cost: int = 0
 @export var click_cost: int = 0
 @export var toggle_cost: int = 500

@@ -17,7 +17,7 @@ extends Node
 const COOLDOWN_INCREMENT = 0.1
 const MONEY_INCREMENT = 50
 
-signal ran_out_of_money()
+signal million_reached()
 signal bucket_upgraded()
 signal spawn_rate_upgraded(rate: float, level: int)
 
@@ -73,6 +73,8 @@ func add_money(amount):
 	stats.money += amount
 	if stats.money < 0:
 		stats.money = 0
+	if stats.money >= 1000000:
+		million_reached.emit()
 	update_money_label()
 	check_disable_upgrades()
 

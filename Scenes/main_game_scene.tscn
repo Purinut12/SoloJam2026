@@ -26,6 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://b0prkdml4uwr5" path="res://Scenes/Objects/button_particles.tscn" id="19_kjjcr"]
 [ext_resource type="Script" uid="uid://g8265k6qoh4i" path="res://Scripts/blink_text.gd" id="22_j73k1"]
 [ext_resource type="Script" uid="uid://dvpwsl1f3juum" path="res://Scripts/cursor_cooldown.gd" id="22_mygrg"]
+[ext_resource type="Script" uid="uid://b7fdfkbs8g20f" path="res://Scripts/million_ui.gd" id="23_0calb"]
 [ext_resource type="AudioStream" uid="uid://dv1uyix65owek" path="res://Audio/SFX/coins 1.mp3" id="26_0086k"]
 [ext_resource type="AudioStream" uid="uid://btbqnqf5nj8ym" path="res://Audio/SFX/Upgrade Sound.mp3" id="27_ej5uf"]
 [ext_resource type="Script" uid="uid://t68fugu70alq" path="res://Scripts/play_buy_coin_sound.gd" id="27_pnu80"]
@@ -140,7 +141,6 @@ outline_size = 10
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_rjul1"]
-font_size = 32
 outline_size = 10
 outline_color = Color(0, 0, 0, 1)
 
@@ -950,7 +950,36 @@ script = ExtResource("22_j73k1")
 blink_color = Color(0.53333336, 0.29411766, 0.16862746, 1)
 duration = 1.0
 
+[node name="MillionUI" type="CanvasLayer" parent="." unique_id=2012761159]
+
+[node name="HUD" type="Control" parent="MillionUI" unique_id=44660527]
+layout_mode = 3
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("23_0calb")
+
+[node name="MarginContainer" type="MarginContainer" parent="MillionUI/HUD" unique_id=2078407968]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 20
+
+[node name="YouLose" type="Label" parent="MillionUI/HUD/MarginContainer" unique_id=1945831758]
+layout_mode = 2
+text = "You've got 1 Million money!
+That's impressive!
+There's no more content after this point,
+but you can continue to play if you want.
+Thank you for playing!"
+label_settings = SubResource("LabelSettings_rjul1")
+vertical_alignment = 1
+
 [node name="LoseUI" type="CanvasLayer" parent="." unique_id=647730584]
+visible = false
 
 [node name="HUD" type="Control" parent="LoseUI" unique_id=630794283]
 layout_mode = 3
@@ -1092,7 +1121,7 @@ color = Color(0, 0, 0, 1)
 [connection signal="ball_spawned" from="GameController/SpawnOnClick" to="CursorCooldown" method="_on_spawn_on_click_ball_spawned"]
 [connection signal="clicked" from="GameController/SpawnOnClick" to="GameController/UpgradeController" method="_on_spawn_on_click_clicked"]
 [connection signal="bucket_upgraded" from="GameController/UpgradeController" to="GameController/BucketManager" method="_on_upgrade_controller_bucket_upgraded"]
-[connection signal="ran_out_of_money" from="GameController/UpgradeController" to="LoseUI/HUD" method="_on_upgrade_controller_ran_out_of_money"]
+[connection signal="million_reached" from="GameController/UpgradeController" to="MillionUI/HUD" method="_on_upgrade_controller_million_reached"]
 [connection signal="spawn_rate_upgraded" from="GameController/UpgradeController" to="GameController/SpawnOnClick" method="_on_upgrade_controller_spawn_rate_upgraded"]
 [connection signal="spawn_rate_upgraded" from="GameController/UpgradeController" to="GameController/AutoSpawner" method="_on_upgrade_controller_spawn_rate_upgraded"]
 [connection signal="spawn_rate_upgraded" from="GameController/UpgradeController" to="CursorCooldown" method="_on_upgrade_controller_spawn_rate_upgraded"]
