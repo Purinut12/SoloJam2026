@@ -6,7 +6,7 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 [node name="ButtonParticles" type="CPUParticles2D" unique_id=1861269910]
 scale = Vector2(3, 1)
 emitting = false
-amount = 20
+amount = 50
 lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
