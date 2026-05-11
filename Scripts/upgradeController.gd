@@ -29,6 +29,7 @@ func upgrade_spawn_speed():
 		add_money(-stats.spawn_rate_upgrade_cost)
 		stats.spawn_rate = stats.spawn_rate + COOLDOWN_INCREMENT
 		stats.spawn_rate_upgrade_cost *= 1.2
+		check_disable_upgrades()
 		update_max_spawn_label()
 		update_max_spawn_upgrade_label()
 		update_shake_label()
@@ -39,6 +40,7 @@ func upgrade_win_reward():
 		add_money(-stats.win_reward_upgrade_cost)
 		stats.win_reward += MONEY_INCREMENT
 		stats.win_reward_upgrade_cost *= 1.2
+		check_disable_upgrades()
 		update_win_reward_label()
 		update_win_reward_upgrade_label()
 		update_shake_label()
@@ -48,6 +50,7 @@ func upgrade_bucket():
 		add_money(-stats.bucket_upgrade_cost)
 		stats.bucket += 1
 		stats.bucket_upgrade_cost *= 10
+		check_disable_upgrades()
 		update_bucket_label()
 		update_bucket_upgrade_label()
 		bucket_upgraded.emit()
@@ -57,6 +60,7 @@ func upgrade_auto_spawn_number():
 		add_money(-stats.auto_spawn_upgrade_cost)
 		stats.auto_spawn_level += 1
 		stats.auto_spawn_upgrade_cost *= 10
+		check_disable_upgrades()
 		update_auto_spawn_number_label()
 		update_auto_spawn_number_upgrade_label()
 		spawn_rate_upgraded.emit(stats.spawn_rate, stats.auto_spawn_level)
@@ -70,6 +74,9 @@ func add_money(amount):
 		stats.money = 0
 		emit_signal("ran_out_of_money")
 	update_money_label()
+	check_disable_upgrades()
+
+func check_disable_upgrades():
 	winRewardUpgradeButton.disabled = stats.money < stats.win_reward_upgrade_cost
 	maxSpawnUpgradeButton.disabled = stats.money < stats.spawn_rate_upgrade_cost
 	bucketUpgradeButton.disabled = stats.money < stats.bucket_upgrade_cost
@@ -77,7 +84,7 @@ func add_money(amount):
 	shakeButton.disabled = stats.money < get_shake_cost()
 
 func get_shake_cost() -> int:
-	return stats.win_reward_upgrade_cost + stats.spawn_rate_upgrade_cost
+	return int(max(stats.win_reward_upgrade_cost, stats.spawn_rate_upgrade_cost))
 
 func update_ui():
 	update_money_label()
@@ -119,7 +126,7 @@ func update_auto_spawn_number_upgrade_label():
 	autoSpawnNumberUpgradeButton.text = "Upgrade (" + format_number_with_commas(stats.auto_spawn_upgrade_cost) + ")"
 
 func update_shake_label():
-	shakeButton.text = "Shake (" + str(get_shake_cost()) + ")"
+	shakeButton.text = "Shake (" + format_number_with_commas(get_shake_cost()) + ")"
 
 func _on_spawn_on_click_ball_spawned() -> void:
 	add_money(-stats.spawn_cost)
