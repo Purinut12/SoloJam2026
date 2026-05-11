@@ -71,9 +71,8 @@ func add_win_money():
 	
 func add_money(amount):
 	stats.money += amount
-	if stats.money <= 0:
+	if stats.money < 0:
 		stats.money = 0
-		emit_signal("ran_out_of_money")
 	update_money_label()
 	check_disable_upgrades()
 
