@@ -10,7 +10,6 @@ var is_auto_spawn_enabled: bool = false
 
 signal ball_spawned()
 signal clicked()
-signal auto_spawn_toggled()
 
 func _process(_delta):
 	if is_auto_spawn_enabled:
@@ -50,10 +49,8 @@ func is_point_in_valid_area(pos: Vector2) -> bool:
 			return true
 	return false
 
-func _on_auto_spawn_toggle_toggled(toggled_on: bool) -> void:
-	is_auto_spawn_enabled = toggled_on
-	auto_spawn_toggled.emit()
-
+func _on_auto_spawn_toggle_button_pressed() -> void:
+	is_auto_spawn_enabled = true
 
 func _on_upgrade_controller_spawn_rate_upgraded(rate: float, _level: int) -> void:
 	spawn_rate = rate

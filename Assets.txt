@@ -3,3 +3,9 @@ http://www.zapsplat.com/
 
 Background img
 https://craftpix.net
+
+Patch note
+- Clean up any pins that make balls stuck
+- Change cost for Shake to be lower value between money per win and spawn cooldown
+- Change starting spawn cooldown to 1
+- Change auto spawn at cursor toggle to upgrade button instead

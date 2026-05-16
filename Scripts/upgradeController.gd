@@ -11,7 +11,7 @@ extends Node
 @export var bucketLabel: Label
 @export var autoSpawnNumberUpgradeButton: Button
 @export var autoSpawnNumberLabel: Label
-@export var autoSpawnToggle: Button
+@export var autoSpawnButton: Button
 
 # These define how much the stats improve per upgrade
 const COOLDOWN_INCREMENT = 0.1
@@ -83,11 +83,11 @@ func check_disable_upgrades():
 	maxSpawnUpgradeButton.disabled = stats.money < stats.spawn_rate_upgrade_cost
 	bucketUpgradeButton.disabled = stats.money < stats.bucket_upgrade_cost
 	autoSpawnNumberUpgradeButton.disabled = stats.money < stats.auto_spawn_upgrade_cost
-	autoSpawnToggle.disabled = stats.money < stats.toggle_cost
+	autoSpawnButton.disabled = (stats.money < stats.toggle_cost) 
 	shakeButton.disabled = stats.money < get_shake_cost()
 
 func get_shake_cost() -> int:
-	return int(max(stats.win_reward_upgrade_cost, stats.spawn_rate_upgrade_cost))
+	return int(min(stats.win_reward_upgrade_cost, stats.spawn_rate_upgrade_cost))
 
 func update_ui():
 	update_money_label()
@@ -111,7 +111,7 @@ func update_win_reward_upgrade_label():
 	winRewardUpgradeButton.text = "Upgrade (" + format_number_with_commas(stats.win_reward_upgrade_cost) + ")"
 
 func update_max_spawn_label():
-	maxSpawnLabel.text = "Max Spawn: " + format_number_with_commas(stats.spawn_rate) + "/sec"
+	maxSpawnLabel.text = "Spawn Rate: " + format_number_with_commas(stats.spawn_rate) + "/sec"
 
 func update_max_spawn_upgrade_label():
 	maxSpawnUpgradeButton.text = "Upgrade (" + format_number_with_commas(stats.spawn_rate_upgrade_cost) + ")"
@@ -134,8 +134,9 @@ func update_shake_label():
 func _on_spawn_on_click_clicked() -> void:
 	add_money(-stats.click_cost)
 
-func _on_spawn_on_click_auto_spawn_toggled() -> void:
+func _on_auto_spawn_toggle_button_pressed() -> void:
 	add_money(-stats.toggle_cost)
+	stats.auto_spawn_cursor = true
 
 func _on_spawn_controller_ball_spawned() -> void:
 	add_money(-stats.spawn_cost)
