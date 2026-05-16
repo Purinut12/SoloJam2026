@@ -948,7 +948,6 @@ bus = &"SFX"
 script = ExtResource("31_fs50o")
 
 [node name="BlackScreen" type="CanvasLayer" parent="." unique_id=1155922638]
-visible = false
 
 [node name="Control" type="Control" parent="BlackScreen" unique_id=666285422]
 layout_mode = 3
